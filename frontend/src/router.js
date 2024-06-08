@@ -6,9 +6,8 @@ import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { useSelector } from "react-redux";
 
 export const AppRoutes = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const authState = useSelector((state) => state.auth);
-  const isAllowed = Boolean(user?.token || authState?.token);
+  const auth = useSelector((state) => state.auth);
+  const isAllowed = Boolean(auth.token);
   const redirectPath = isAllowed ? '/' : '/login'
 
   return (

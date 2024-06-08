@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { Button, Card, Col, Container, Form, Row, Image, FloatingLabel } from "react-bootstrap";
 import LoginImage from '../../assets/images/login-image.jpeg'
-import { login } from "../../api/api";
+import { login } from "../../store/api/api";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/slices/auth";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +26,7 @@ export const LoginForm = () => {
         setValidation(true);
         navigate('/');
       }).catch(error => {
-        if (error.response.status === 401) {
+        if (error.response?.status === 401) {
           setAuthError('Неверные имя пользователя или пароль');
           setValidation(false);
         }

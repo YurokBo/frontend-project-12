@@ -13,7 +13,6 @@ export const login = ({ username, password }) => {
       }
     })
   } catch (error) {
-    console.log(error)
     throw Error(error)
   }
 }
