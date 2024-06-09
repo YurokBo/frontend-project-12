@@ -19,7 +19,7 @@ export const Chat = () => {
   const { data, isLoading } = useGetChannelsQuery();
   const dispatch = useDispatch();
   const { channels } = useSelector((state) => state.channels)
-  const [ defaultChannel, setDefaultChannel ] = useState([])
+  const [ defaultChannel, setDefaultChannel ] = useState({ name: '', id: '', removable: false })
   const [ defaultActiveId, setDefaultActiveId ] = useState(null)
   const [ title, setTitle ] = useState(defaultChannel.name);
   const [ isModalOpen, setModalOpen ] = useState(false);
@@ -96,7 +96,7 @@ export const Chat = () => {
                               <Dropdown.Toggle className="flex-grow-0 p-0" split variant={ null } />
                               <Dropdown.Menu>
                                 <Dropdown.Item>Переименовать</Dropdown.Item>
-                                <Dropdown.Item onClick={() => deleteChannel(channel.id)}>Удалить</Dropdown.Item>
+                                <Dropdown.Item onClick={ () => deleteChannel(channel.id) }>Удалить</Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown> :
                             <Button
