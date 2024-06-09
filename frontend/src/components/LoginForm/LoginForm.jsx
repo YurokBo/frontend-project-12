@@ -21,16 +21,18 @@ export const LoginForm = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: values => {
-      login(values).then(response => {
-        dispatch(actions.setUser(response.data));
-        setValidation(true);
-        navigate('/');
-      }).catch(error => {
-        if (error.response?.status === 401) {
-          setAuthError('Неверные имя пользователя или пароль');
-          setValidation(false);
-        }
-      })
+      login(values)
+        .then(response => {
+          dispatch(actions.setUser(response.data));
+          setValidation(true);
+          navigate('/');
+        })
+        .catch(error => {
+          if (error.response?.status === 401) {
+            setAuthError('Неверные имя пользователя или пароль');
+            setValidation(false);
+          }
+        })
     },
   });
 
@@ -60,7 +62,7 @@ export const LoginForm = () => {
                       onChange={ handleChange }
                       value={ formik.values.username }
                       required
-                      isInvalid={!isValid}
+                      isInvalid={ !isValid }
                     />
                   </FloatingLabel>
                 </Form.Group>
@@ -74,7 +76,7 @@ export const LoginForm = () => {
                       value={ formik.values.password }
                       autoComplete="current-password"
                       required
-                      isInvalid={!isValid}
+                      isInvalid={ !isValid }
                     />
                     { !isValid && authError &&
                       <Form.Control.Feedback type="invalid" tooltip>
@@ -82,7 +84,7 @@ export const LoginForm = () => {
                       </Form.Control.Feedback> }
                   </FloatingLabel>
                 </Form.Group>
-                <Button as="input" type="submit" variant="outline-primary" value="Войти" className="w-100" />
+                <Button type="submit" variant="outline-primary" value="Войти" className="w-100" />
               </Form>
             </Col>
           </Row>
