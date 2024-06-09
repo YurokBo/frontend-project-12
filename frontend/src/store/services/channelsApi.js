@@ -9,26 +9,37 @@ export const channelsApi = createApi({
       const { auth: { token } } = getState();
 
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set('Authorization', `Bearer ${ token }`);
       }
 
       return headers;
     },
   }),
-  tagTypes: ['Channel'],
+  tagTypes: [ 'Channel' ],
   endpoints: (builder) => ({
     getChannels: builder.query({
       query: () => '',
     }),
     addChannel: builder.mutation({
-      query: (newChannel) => ({
-        url: 'channels',
-        method: 'POST',
-        body: newChannel,
-      }),
-      invalidatesTags: ['Channel'],
+      query: (newChannel) => {
+        return {
+          url: '',
+          method: 'POST',
+          body: newChannel,
+        }
+      },
+      invalidatesTags: [ 'Channel' ],
+    }),
+    removeChannel: builder.mutation({
+      query: (id) => {
+        return {
+          url: `${ id }`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: [ 'Channel' ],
     }),
   }),
 });
 
-export const { useGetChannelsQuery } = channelsApi;
+export const { useGetChannelsQuery, useAddChannelMutation, useRemoveChannelMutation } = channelsApi;

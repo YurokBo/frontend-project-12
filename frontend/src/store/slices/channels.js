@@ -7,6 +7,9 @@ export const slice = createSlice({
     setChannels(state, { payload }) {
       state.channels = payload
     },
+    addChannel(state, { payload }) {
+      state.channels.push(payload);
+    },
   }
 });
 
