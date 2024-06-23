@@ -17,8 +17,8 @@ import {
   ButtonGroup
 } from "react-bootstrap";
 import { PlusLg } from "react-bootstrap-icons";
-import { AddChannelModal } from "../../components/Modals/AddChannelModal";
-import { RenameChannelModal } from "../../components/Modals/RenameChannelModal";
+import { AddChannelModal } from "../../components/modals/AddChannelModal";
+import { RenameChannelModal } from "../../components/modals/RenameChannelModal";
 import { cloneDeep } from "lodash";
 
 export const Chat = () => {

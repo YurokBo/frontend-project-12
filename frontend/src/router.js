@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { Login } from "./pages/login/Login";
 import { NotFound } from "./pages/not-found/NotFound";
 import { Chat } from "./pages/chat/Chat";
-import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+import { PrivateRoute } from "./components/private-route/PrivateRoute";
 import { useSelector } from "react-redux";
 
 export const AppRoutes = () => {
