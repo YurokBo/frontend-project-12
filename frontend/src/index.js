@@ -9,9 +9,9 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { initSocket } from "./store/socket/socketApi";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
 initSocket(store);
 
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>

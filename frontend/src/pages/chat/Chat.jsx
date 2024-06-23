@@ -96,7 +96,6 @@ export const Chat = () => {
                       <Button
                         as="button"
                         variant={ channel.id === activeChannelId ? 'secondary' : null }
-                        eventKey={ channel.id }
                         className="border-0 w-100 rounded-0 text-start"
                         onClick={ () => setActiveChannelTitle(channel.name) }
                       >
