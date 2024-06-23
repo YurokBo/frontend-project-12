@@ -19,7 +19,6 @@ export const AddChannelModal = ({ ...props }) => {
 
       addChannel({name: trimmedName})
         .then((data) => {
-          console.log(data);
           dispatch(actions.addChannel({ ...data }))
           hide();
           formik.values.name = '';
@@ -49,7 +48,7 @@ export const AddChannelModal = ({ ...props }) => {
           </Form.Group>
           <div className="d-flex justify-content-end gap-2">
             <Button variant="secondary" onClick={ hide }>Отменить</Button>
-            <Button disabled={isLoading} type="submit">
+            <Button disabled={isLoading || !formik.values.name.length} type="submit">
               {isLoading ? 'Загрузка…' : 'Отправить'}
             </Button>
           </div>

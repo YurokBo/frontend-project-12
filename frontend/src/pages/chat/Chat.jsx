@@ -1,4 +1,8 @@
-import { useGetChannelsQuery, useRemoveChannelMutation } from "../../store/services/channelsApi";
+import {
+  useGetChannelsQuery,
+  useRemoveChannelMutation,
+  useUpdateChannelMutation
+} from "../../store/services/channelsApi";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../store";
 import { useEffect, useState } from "react";
@@ -13,26 +17,30 @@ import {
   ButtonGroup
 } from "react-bootstrap";
 import { PlusLg } from "react-bootstrap-icons";
-import { AddChannelModal } from "../../components/Modal/Modal";
+import { AddChannelModal } from "../../components/Modals/AddChannelModal";
+import { RenameChannelModal } from "../../components/Modals/RenameChannelModal";
+import { cloneDeep } from "lodash";
 
 export const Chat = () => {
   const { data, isLoading } = useGetChannelsQuery();
   const dispatch = useDispatch();
-  const { channels } = useSelector((state) => state.channels)
-  const [ defaultChannel, setDefaultChannel ] = useState({ name: '', id: '', removable: false })
-  const [ defaultActiveId, setDefaultActiveId ] = useState(null)
-  const [ title, setTitle ] = useState(defaultChannel.name);
+  const { channels, activeChannel, activeChannelId } = useSelector((state) => state.channels);
+  const [ activeChannelTitle, setActiveChannelTitle ] = useState(null);
   const [ isModalOpen, setModalOpen ] = useState(false);
   const [ removeChannel ] = useRemoveChannelMutation();
+  // const [ updateChannel ] = useUpdateChannelMutation();
+  const [ isRenameModalOpen, setRenameModalOpen ] = useState(false);
+  const [ renameChannelData, setRenameChannelData ] = useState({ id: '', name: '' });
 
   useEffect(() => {
-      console.log('useEffect')
-      dispatch(actions.setChannels(data))
-      if (data || channels?.length) {
-        setDefaultChannel(data[0]);
-        setDefaultActiveId(defaultChannel.id)
+      dispatch(actions.setChannels(data));
+
+      if (data) {
+        dispatch(actions.setActiveChannel(data[0]));
+        dispatch(actions.setActiveChannelId(data[0].id))
+        setActiveChannelTitle(activeChannel.name)
       }
-    }, [ data, channels, dispatch, defaultChannel.id, defaultActiveId ]
+    }, [ data, channels, activeChannel ]
   );
 
 
@@ -42,6 +50,15 @@ export const Chat = () => {
 
   const deleteChannel = (id) => {
     removeChannel(id);
+  }
+
+  const handleUpdateChannel = ({ id, name }) => {
+    setRenameChannelData(cloneDeep({ id, name }));
+    setRenameModalOpen(!isRenameModalOpen);
+  }
+
+  const handleActiveChannelId = (id) => {
+    dispatch(actions.setActiveChannelId(id))
   }
 
   if (isLoading) {
@@ -56,7 +73,7 @@ export const Chat = () => {
   return (
     <Container className="h-75 my-4 overflow-hidden rounded shadow">
       { !isLoading && channels &&
-        <Tab.Container defaultActiveId={ defaultActiveId }>
+        <Tab.Container defaultActiveId={ activeChannel.id }>
           <Row className="h-100">
             <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
               <div className="d-flex mt-1 justify-content-between align-items-center mb-2 ps-4 pe-2 p-4">
@@ -75,11 +92,11 @@ export const Chat = () => {
                   return (
                     <Nav.Item as="li" key={ channel.id }>
                       <Nav.Link
-                        as="button"
+                        as="a"
                         variant="secondary"
                         eventKey={ channel.id }
                         className="border-0 w-100 rounded-0 text-start text-black"
-                        onClick={ () => setTitle(channel.name) }
+                        onClick={ () => setActiveChannelTitle(channel.name) }
                       >
                         <div className="d-flex justify-content-between align-items-center w-100">
                           { channel.removable ?
@@ -88,22 +105,34 @@ export const Chat = () => {
                                 type="button"
                                 key={ channel.id }
                                 className="w-100 rounded-0 text-start text-truncate p-0"
-                                variant={ null }
+                                variant={ channel.id === activeChannelId ? 'secondary' : null }
+                                onClick={ () => handleActiveChannelId(channel.id) }
                               >
                                 <span className="me-1">#</span>
                                 <span>{ channel.name }</span>
                               </Button>
                               <Dropdown.Toggle className="flex-grow-0 p-0" split variant={ null } />
                               <Dropdown.Menu>
-                                <Dropdown.Item>Переименовать</Dropdown.Item>
-                                <Dropdown.Item onClick={ () => deleteChannel(channel.id) }>Удалить</Dropdown.Item>
+                                <Dropdown.Item
+                                  as="button"
+                                  onClick={ () => handleUpdateChannel({ id: channel.id,  name: channel.name }) }
+                                >
+                                  Переименовать
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  as="button"
+                                  onClick={ () => deleteChannel(channel.id) }
+                                >
+                                  Удалить
+                                </Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown> :
                             <Button
                               type="button"
                               key={ channel.id }
                               className="w-100 rounded-3 text-start p-0"
-                              variant={ null }
+                              variant={ channel.id === activeChannelId ? 'secondary' : null }
+                              onClick={ () => handleActiveChannelId(channel.id) }
                             >
                               <span className="me-1">#</span>
                               <span>{ channel.name }</span>
@@ -119,7 +148,7 @@ export const Chat = () => {
             <Col className="p-0">
               <div className="bg-light mb-4 p-3 shadow-sm small">
                 <p className="m-0">
-                  <b># { title }</b>
+                  <b># { activeChannelTitle }</b>
                 </p>
                 <span className="text-muted">
                 0 сообщений
@@ -130,6 +159,11 @@ export const Chat = () => {
         </Tab.Container>
       }
       <AddChannelModal show={ isModalOpen } hide={ () => openModal() } />
+      <RenameChannelModal
+        show={ isRenameModalOpen }
+        hide={ () => setRenameModalOpen(!isRenameModalOpen) }
+        renameChannelData={ renameChannelData }
+      />
     </Container>
   )
 }
