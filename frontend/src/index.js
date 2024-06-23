@@ -7,9 +7,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
-
+import { initSocket } from "./store/socket/socketApi";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+initSocket(store);
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>

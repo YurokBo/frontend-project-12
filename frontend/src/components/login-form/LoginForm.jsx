@@ -84,7 +84,9 @@ export const LoginForm = () => {
                       </Form.Control.Feedback> }
                   </FloatingLabel>
                 </Form.Group>
-                <Button type="submit" variant="outline-primary" value="Войти" className="w-100" />
+                <Button type="submit" variant="outline-primary" value="Войти" className="w-100">
+                  Войти
+                </Button>
               </Form>
             </Col>
           </Row>

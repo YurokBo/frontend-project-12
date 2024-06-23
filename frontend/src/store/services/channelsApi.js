@@ -22,32 +22,26 @@ export const channelsApi = createApi({
       providesTags: [ 'Channel' ],
     }),
     addChannel: builder.mutation({
-      query: (newChannel) => {
-        return {
-          url: '',
-          method: 'POST',
-          body: newChannel,
-        }
-      },
+      query: (newChannel) => ({
+        url: '',
+        method: 'POST',
+        body: newChannel,
+      }),
       invalidatesTags: [ 'Channel' ],
     }),
     removeChannel: builder.mutation({
-      query: (id) => {
-        return {
-          url: `${ id }`,
-          method: 'DELETE',
-        }
-      },
+      query: (id) => ({
+        url: `${ id }`,
+        method: 'DELETE',
+      }),
       invalidatesTags: [ 'Channel' ],
     }),
     updateChannel: builder.mutation({
-      query: ({ id, name }) => {
-        return {
-          url: `${ id }`,
-          method: 'PATCH',
-          body: { ...name },
-        }
-      },
+      query: ({ id, name }) => ({
+        url: `${ id }`,
+        method: 'PATCH',
+        body: { ...name },
+      }),
       invalidatesTags: [ 'Channel' ],
     }),
   }),
