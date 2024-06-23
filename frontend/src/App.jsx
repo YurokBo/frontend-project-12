@@ -1,5 +1,5 @@
 import { AppRoutes } from "./router";
-import { Header } from "./components/Header/Header";
+import { Header } from "./components/header/Header";
 import { useSelector } from "react-redux";
 
 function App() {
