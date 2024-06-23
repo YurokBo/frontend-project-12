@@ -20,6 +20,8 @@ import { PlusLg } from "react-bootstrap-icons";
 import { AddChannelModal } from "../../components/modals/AddChannelModal";
 import { RenameChannelModal } from "../../components/modals/RenameChannelModal";
 import { cloneDeep } from "lodash";
+import { MessageForm } from "../../components/message/MessageForm";
+import { Messages } from "../../components/message/Messages";
 
 export const Chat = () => {
   const { data, isLoading } = useGetChannelsQuery();
@@ -71,7 +73,7 @@ export const Chat = () => {
   }
 
   return (
-    <Container className="h-75 my-4 overflow-hidden rounded shadow">
+    <Container className="h-75 my-4 overflow-hidden rounded shadow position-relative">
       { !isLoading && channels &&
         <Tab.Container defaultActiveId={ activeChannel.id }>
           <Row className="h-100">
@@ -91,26 +93,24 @@ export const Chat = () => {
                 { channels.map(channel => {
                   return (
                     <Nav.Item as="li" key={ channel.id }>
-                      <Nav.Link
-                        as="a"
-                        variant="secondary"
+                      <Button
+                        as="button"
+                        variant={ channel.id === activeChannelId ? 'secondary' : null }
                         eventKey={ channel.id }
-                        className="border-0 w-100 rounded-0 text-start text-black"
+                        className="border-0 w-100 rounded-0 text-start"
                         onClick={ () => setActiveChannelTitle(channel.name) }
                       >
                         <div className="d-flex justify-content-between align-items-center w-100">
                           { channel.removable ?
                             <Dropdown className="d-flex justify-content-between w-100" as={ ButtonGroup }>
-                              <Button
-                                type="button"
+                              <div
                                 key={ channel.id }
-                                className="w-100 rounded-0 text-start text-truncate p-0"
-                                variant={ channel.id === activeChannelId ? 'secondary' : null }
+                                className="w-100 border-0 rounded-0 text-start text-truncate p-0"
                                 onClick={ () => handleActiveChannelId(channel.id) }
                               >
                                 <span className="me-1">#</span>
                                 <span>{ channel.name }</span>
-                              </Button>
+                              </div>
                               <Dropdown.Toggle className="flex-grow-0 p-0" split variant={ null } />
                               <Dropdown.Menu>
                                 <Dropdown.Item
@@ -127,33 +127,25 @@ export const Chat = () => {
                                 </Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown> :
-                            <Button
-                              type="button"
+                            <div
                               key={ channel.id }
                               className="w-100 rounded-3 text-start p-0"
-                              variant={ channel.id === activeChannelId ? 'secondary' : null }
                               onClick={ () => handleActiveChannelId(channel.id) }
                             >
                               <span className="me-1">#</span>
                               <span>{ channel.name }</span>
-                            </Button>
+                            </div>
                           }
                         </div>
-                      </Nav.Link>
+                      </Button>
                     </Nav.Item>
                   )
                 }) }
               </Nav>
             </Col>
-            <Col className="p-0">
-              <div className="bg-light mb-4 p-3 shadow-sm small">
-                <p className="m-0">
-                  <b># { activeChannelTitle }</b>
-                </p>
-                <span className="text-muted">
-                0 сообщений
-              </span>
-              </div>
+            <Col className="d-flex flex-column h-100 p-0">
+              <Messages channelTitle={activeChannelTitle} />
+              <MessageForm />
             </Col>
           </Row>
         </Tab.Container>
