@@ -96,7 +96,7 @@ export const Chat = () => {
                       <Button
                         as="button"
                         variant={ channel.id === activeChannelId ? 'secondary' : null }
-                        className="border-0 w-100 rounded-0 text-start"
+                        className="border-0 w-100 rounded-0 text-start p-0"
                         onClick={ () => setActiveChannelTitle(channel.name) }
                       >
                         <div className="d-flex justify-content-between align-items-center w-100">
@@ -104,7 +104,7 @@ export const Chat = () => {
                             <Dropdown className="d-flex justify-content-between w-100" as={ ButtonGroup }>
                               <div
                                 key={ channel.id }
-                                className="w-100 border-0 rounded-0 text-start text-truncate p-0"
+                                className="w-100 border-0 rounded-0 text-start text-truncate p-2"
                                 onClick={ () => handleActiveChannelId(channel.id) }
                               >
                                 <span className="me-1">#</span>
@@ -128,7 +128,7 @@ export const Chat = () => {
                             </Dropdown> :
                             <div
                               key={ channel.id }
-                              className="w-100 rounded-3 text-start p-0"
+                              className="w-100 rounded-3 text-start p-2"
                               onClick={ () => handleActiveChannelId(channel.id) }
                             >
                               <span className="me-1">#</span>
