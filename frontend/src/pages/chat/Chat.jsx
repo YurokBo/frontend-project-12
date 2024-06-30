@@ -17,6 +17,7 @@ import { RenameChannelModal } from "../../components/modals/RenameChannelModal";
 import { MessageForm } from "../../components/message/MessageForm";
 import { Messages } from "../../components/message/Messages";
 import { Channels } from "../../components/channels/Channels";
+import { DeleteChannelModal } from "../../components/modals/DeleteChannelModal";
 
 export const Chat = () => {
   const { data, isLoading } = useGetChannelsQuery();
@@ -25,7 +26,6 @@ export const Chat = () => {
   const [ activeChannelTitle, setActiveChannelTitle ] = useState(null);
   const [ isModalOpen, setModalOpen ] = useState(false);
   // const [ updateChannel ] = useUpdateChannelMutation();
-  const [ isRenameModalOpen, setRenameModalOpen ] = useState(false);
 
   const [channelsNames, setChannelsNames] = useState([])
 
@@ -36,15 +36,15 @@ export const Chat = () => {
 
       if (data) {
         dispatch(actions.setActiveChannel(data[0]));
-        dispatch(actions.setActiveChannelId(data[0].id))
-        setActiveChannelTitle(activeChannel.name)
-        setChannelsNames(data.map(({name}) => name))
+        dispatch(actions.setActiveChannelId(data[0].id));
+        setActiveChannelTitle(activeChannel.name);
+        setChannelsNames(data.map(({name}) => name));
       }
     }, [ data, channels, activeChannel ]
   );
 
 
-  const handleToggleModal = () => {
+  const handleToggleAddChannelModal = () => {
     setModalOpen(!isModalOpen)
   }
 
@@ -67,7 +67,7 @@ export const Chat = () => {
                 <Button
                   type="button" size="sm" variant="outline-primary"
                   className="p-1 text-primary btn btn-group-vertical"
-                  onClick={ handleToggleModal }
+                  onClick={ handleToggleAddChannelModal }
                 >
                   <PlusLg />
                   <span className="visually-hidden">+</span>
@@ -82,7 +82,7 @@ export const Chat = () => {
           </Row>
         </Tab.Container>
       }
-      <AddChannelModal show={ isModalOpen } hide={ () => handleToggleModal() } channelsNames={channelsNames} />
+      <AddChannelModal show={ isModalOpen } hide={ () => handleToggleAddChannelModal() } channelsNames={channelsNames} />
       {/*<RenameChannelModal*/}
       {/*  show={ isRenameModalOpen }*/}
       {/*  hide={ () => setRenameModalOpen(!isRenameModalOpen) }*/}
