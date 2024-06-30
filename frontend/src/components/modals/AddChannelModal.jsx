@@ -3,16 +3,23 @@ import { useFormik } from "formik";
 import { useAddChannelMutation } from "../../store/services/channelsApi";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store";
+import { channelNameSchema } from "../../utils/validation";
 
 export const AddChannelModal = ({ ...props }) => {
-  const { show, hide } = props;
-  const [addChannel, {isLoading, isSuccess}] = useAddChannelMutation();
+  const { show, hide, channelsNames } = props;
+  const [addChannel, {isLoading, error, isError, isSuccess}] = useAddChannelMutation();
   const dispatch = useDispatch();
+
+  const INITIAL_VALUES = {
+    name: '',
+  }
 
   const formik = useFormik({
     initialValues: {
-      name: '',
+      ...INITIAL_VALUES,
     },
+    validationSchema: channelNameSchema(channelsNames),
+    validateOnBlur: true,
     onSubmit: (values) => {
       const { name } = values;
       const trimmedName = name.trim();
@@ -24,12 +31,18 @@ export const AddChannelModal = ({ ...props }) => {
           formik.values.name = '';
         })
         .catch((error) => {
-          console.log(error);
+          throw Error(error);
         })
     }
-  })
+  });
+
+  const handleHideModal = () => {
+    hide();
+    formik.handleReset({ ...INITIAL_VALUES });
+  }
+
   return (
-    <Modal show={ show } onHide={ hide } centered>
+    <Modal show={ show } onHide={ handleHideModal } centered>
       <Modal.Header closeButton>
         <Modal.Title>
           Добавить канал
@@ -42,13 +55,21 @@ export const AddChannelModal = ({ ...props }) => {
               id="name"
               type="text"
               autoFocus
+              required
               onChange={ formik.handleChange }
+              onBlur={formik.handleBlur}
               value={formik.values.name}
+              isInvalid={!formik.isValid}
             />
+            { !formik.isValid &&
+              <Form.Control.Feedback type="invalid">
+                { formik.errors.name }
+              </Form.Control.Feedback>
+            }
           </Form.Group>
           <div className="d-flex justify-content-end gap-2">
-            <Button variant="secondary" onClick={ hide }>Отменить</Button>
-            <Button disabled={isLoading || !formik.values.name.length} type="submit">
+            <Button variant="secondary" disabled={isLoading} onClick={ handleHideModal }>Отменить</Button>
+            <Button disabled={isLoading || !formik.values.name.length || !formik.isValid} type="submit">
               {isLoading ? 'Загрузка…' : 'Отправить'}
             </Button>
           </div>
