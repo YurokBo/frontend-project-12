@@ -55,7 +55,7 @@ export const Channels = () => {
                   </Dropdown.Item>
                   <Dropdown.Item
                     as="button"
-                    // onClick={ () => deleteChannel(channel.id) }
+                    onClick={ () => deleteChannel(channel.id) }
                   >
                     Удалить
                   </Dropdown.Item>
