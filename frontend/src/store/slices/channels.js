@@ -22,7 +22,7 @@ export const slice = createSlice({
       state.activeChannelId = payload;
     },
     addChannel(state, { payload }) {
-      state.channels.push(payload.data);
+      state.channels.push(payload);
     },
   }
 });

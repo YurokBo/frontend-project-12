@@ -2,7 +2,6 @@ import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../store";
 import { useState } from "react";
-import { useRemoveChannelMutation } from "../../store/services/channelsApi";
 import { DeleteChannelModal } from "../modals/DeleteChannelModal";
 
 export const Channels = () => {

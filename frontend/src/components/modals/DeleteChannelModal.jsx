@@ -1,9 +1,5 @@
 import { Button, Modal, Form } from "react-bootstrap";
-import { useFormik } from "formik";
-import { useAddChannelMutation, useRemoveChannelMutation } from "../../store/services/channelsApi";
-import { useDispatch } from "react-redux";
-import { actions } from "../../store";
-import { channelNameSchema } from "../../utils/validation";
+import { useRemoveChannelMutation } from "../../store/services/channelsApi";
 
 export const DeleteChannelModal = ({ ...props }) => {
   const { show, hide, channelId } = props;
