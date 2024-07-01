@@ -1,30 +1,38 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useFormik } from "formik";
-import { useAddChannelMutation } from "../../store/services/channelsApi";
-import { useDispatch } from "react-redux";
+import { useAddChannelMutation, useUpdateChannelMutation } from "../../store/services/channelsApi";
+import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../store";
 import { channelNameSchema } from "../../utils/validation";
+import { useEffect, useState } from "react";
 
-export const AddChannelModal = ({ ...props }) => {
-  const { show, hide, channelsNames } = props;
-  const [addChannel, {isLoading, error, isError, isSuccess}] = useAddChannelMutation();
+export const RenameChannelModal = ({ ...props }) => {
+  const { show, hide, channelId, channelName } = props;
+  const [updateChannel, {isLoading, error, isError, isSuccess}] = useUpdateChannelMutation();
   const dispatch = useDispatch();
+  const { channelsNames } = useSelector((state) => state.channels);
+  const [oldChannelName, setOldChannelName] = useState(channelName || '')
+
+  useEffect(() => {
+    setOldChannelName(channelName);
+  }, [channelName])
 
   const INITIAL_VALUES = {
-    name: '',
+    name: oldChannelName,
   }
 
   const formik = useFormik({
     initialValues: {
       ...INITIAL_VALUES,
     },
+    enableReinitialize: true,
     validationSchema: channelNameSchema(channelsNames),
     validateOnBlur: true,
     onSubmit: (values) => {
       const { name } = values;
       const trimmedName = name.trim();
 
-      addChannel({name: trimmedName})
+      updateChannel({name: trimmedName, id: channelId})
         .then((response) => {
           dispatch(actions.addChannel({ ...response.data }))
           hide();
@@ -45,7 +53,7 @@ export const AddChannelModal = ({ ...props }) => {
     <Modal show={ show } onHide={ handleHideModal } centered>
       <Modal.Header closeButton>
         <Modal.Title>
-          Добавить канал
+          Переименовать канал
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../store";
 import { useState } from "react";
 import { DeleteChannelModal } from "../modals/DeleteChannelModal";
+import { RenameChannelModal } from "../modals/RenameChannelModel";
 
 export const Channels = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,9 @@ export const Channels = () => {
   const [ isDeleteModalOpen, setDeleteModalOpen ] = useState(false);
   const [ channelId, setChannelId ] = useState('');
 
+  const [ isRenameModalOpen, setRenameModalOpen ] = useState(false);
+  const [ channelName, setChannelName ] = useState('');
+
   const handleActiveChannelId = (id) => {
     dispatch(actions.setActiveChannelId(id));
   }
@@ -19,6 +23,12 @@ export const Channels = () => {
   const handleToggleDeleteChannelModal = (id) => {
     setDeleteModalOpen(!isDeleteModalOpen);
     setChannelId(id);
+  }
+
+  const handleToggleRenameChannelModal = ({ id, name } = {id: '', name: ''}) => {
+    setChannelId(id);
+    setChannelName(name)
+    setRenameModalOpen(!isRenameModalOpen);
   }
 
   return (
@@ -47,7 +57,7 @@ export const Channels = () => {
                   <Dropdown.Menu>
                     <Dropdown.Item
                       as="button"
-                      // onClick={ () => handleUpdateChannel({ id: channel.id, name: channel.name }) }
+                      onClick={ () => handleToggleRenameChannelModal({ id: channel.id, name: channel.name }) }
                     >
                       Переименовать
                     </Dropdown.Item>
@@ -78,6 +88,13 @@ export const Channels = () => {
         show={ isDeleteModalOpen }
         hide={ () => handleToggleDeleteChannelModal() }
         channelId={ channelId }
+      />
+      <RenameChannelModal
+        show={ isRenameModalOpen }
+        hide={ () => handleToggleRenameChannelModal() }
+        channelId={ channelId }
+        channelName={ channelName }
+        channels={channels}
       />
     </>
   )

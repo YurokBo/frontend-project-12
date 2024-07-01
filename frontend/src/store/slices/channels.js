@@ -10,6 +10,7 @@ export const slice = createSlice({
       removable: false
     },
     activeChannelId: null,
+    channelsNames: []
   },
   reducers: {
     setChannels(state, { payload }) {
@@ -24,6 +25,9 @@ export const slice = createSlice({
     addChannel(state, { payload }) {
       state.channels.push(payload);
     },
+    setChannelsNames(state, { payload }) {
+      state.channelsNames = [...payload];
+    }
   }
 });
 
