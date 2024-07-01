@@ -20,14 +20,9 @@ import { Channels } from "../../components/channels/Channels";
 export const Chat = () => {
   const { data, isLoading } = useGetChannelsQuery();
   const dispatch = useDispatch();
-  const { channels, activeChannel, activeChannelId } = useSelector((state) => state.channels);
+  const { channels, activeChannel, activeChannelId, channelsNames } = useSelector((state) => state.channels);
   const [ activeChannelTitle, setActiveChannelTitle ] = useState(null);
   const [ isModalOpen, setModalOpen ] = useState(false);
-  // const [ updateChannel ] = useUpdateChannelMutation();
-
-  const [channelsNames, setChannelsNames] = useState([])
-
-  // const channelsNames = channels.map(({name}) => name);
 
   useEffect(() => {
       dispatch(actions.setChannels(data));
@@ -35,12 +30,11 @@ export const Chat = () => {
       if (data) {
         dispatch(actions.setActiveChannel(data[0]));
         dispatch(actions.setActiveChannelId(data[0].id));
+        dispatch(actions.setChannelsNames(data.map(({name}) => name)));
         setActiveChannelTitle(activeChannel.name);
-        setChannelsNames(data.map(({name}) => name));
       }
     }, [ data, channels, activeChannel ]
   );
-
 
   const handleToggleAddChannelModal = () => {
     setModalOpen(!isModalOpen)
@@ -81,10 +75,6 @@ export const Chat = () => {
         </Tab.Container>
       }
       <AddChannelModal show={ isModalOpen } hide={ () => handleToggleAddChannelModal() } channelsNames={channelsNames} />
-      {/*<RenameChannelModal*/}
-      {/*  show={ isRenameModalOpen }*/}
-      {/*  hide={ () => setRenameModalOpen(!isRenameModalOpen) }*/}
-      {/*/>*/}
     </Container>
   )
 }
