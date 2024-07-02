@@ -4,6 +4,7 @@ import { NotFound } from "./pages/not-found/NotFound";
 import { Chat } from "./pages/chat/Chat";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
 import { useSelector } from "react-redux";
+import { Registration } from "./pages/registration/Registration";
 
 export const AppRoutes = () => {
   const auth = useSelector((state) => state.auth);
@@ -18,6 +19,7 @@ export const AppRoutes = () => {
         <Route path="/" element={ <Chat /> } />
       </Route>
       <Route path="/login" element={ <Login /> } />
+      <Route path="/signup" element={ <Registration /> } />
 
       <Route path="*" element={ <NotFound /> } />
     </Routes>
