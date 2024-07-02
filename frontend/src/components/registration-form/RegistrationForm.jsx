@@ -1,13 +1,13 @@
-import { useFormik } from "formik";
-import { Button, Card, Col, Container, Form, Row, Image, FloatingLabel } from "react-bootstrap";
-import LoginImage from '../../assets/images/login-image.jpeg'
-import { login } from "../../store/api/api";
 import { useDispatch } from "react-redux";
-import { actions } from "../../store/slices/auth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useFormik } from "formik";
+import { login, signup } from "../../store/api/api";
+import { actions } from "../../store/slices/auth";
+import { Button, Card, Col, Container, FloatingLabel, Form, Image, Row } from "react-bootstrap";
+import LoginImage from "../../assets/images/registration-image.jpg";
 
-export const LoginForm = () => {
+export const RegistrationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [ authError, setAuthError ] = useState(null);
@@ -17,11 +17,12 @@ export const LoginForm = () => {
     initialValues: {
       username: '',
       password: '',
+      confirmPassword: '',
     },
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: values => {
-      login(values)
+      signup(values)
         .then(response => {
           dispatch(actions.setUser(response.data));
           setValidation(true);
@@ -43,16 +44,16 @@ export const LoginForm = () => {
   };
 
   return (
-    <Container className="container-fluid d-flex align-items-center justify-content-center w-100">
-      <Card className="shadow-sm col-xl-8">
-        <Card.Body className="p-5">
-          <Row>
-            <Col xl={ 6 } className="d-flex align-items-center justify-content-center">
+    <Container className="col-12 col-md-8 col-xxl-6">
+      <Card className="shadow-sm">
+        <Card.Body className="card-body d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
+          <Row className="w-100">
+            <Col className="d-flex align-items-center justify-content-center">
               <Image src={ LoginImage } fluid />
             </Col>
-            <Col xl={ 6 }>
+            <Col >
               <h1 className="text-center mb-4">
-                Войти
+                Регистрация
               </h1>
               <Form onSubmit={ formik.handleSubmit }>
                 <Form.Group className="form-floating mb-4">
@@ -86,19 +87,31 @@ export const LoginForm = () => {
                       </Form.Control.Feedback> }
                   </FloatingLabel>
                 </Form.Group>
+                <Form.Group className="form-floating mb-4">
+                  <FloatingLabel label="Подтвердите пароль" className="mb-4">
+                    <Form.Control
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="Подтвердите пароль"
+                      onChange={ handleChange }
+                      value={ formik.values.password }
+                      autoComplete="current-password"
+                      required
+                      isInvalid={ !isValid }
+                    />
+                    { !isValid && authError &&
+                      <Form.Control.Feedback type="invalid" tooltip>
+                        { authError }
+                      </Form.Control.Feedback> }
+                  </FloatingLabel>
+                </Form.Group>
                 <Button type="submit" variant="outline-primary" value="Войти" className="w-100">
-                  Войти
+                  Зарегистрироваться
                 </Button>
               </Form>
             </Col>
           </Row>
         </Card.Body>
-        <Card.Footer className="p-4">
-          <div className="text-center">
-            <span>Нет аккаунта? </span>
-            <Card.Link href="/signup">Регистрация</Card.Link>
-          </div>
-        </Card.Footer>
       </Card>
     </Container>
   )

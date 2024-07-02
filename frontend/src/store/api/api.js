@@ -16,3 +16,18 @@ export const login = ({ username, password }) => {
     throw Error(error)
   }
 }
+
+export const signup = ({ username, password }) => {
+  try {
+    return axios.request({
+      method: 'post',
+      url: `${API_PATH}/signup`,
+      data: {
+        username,
+        password
+      }
+    })
+  } catch (error) {
+    throw Error(error)
+  }
+}
