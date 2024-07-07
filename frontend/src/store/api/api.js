@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const API_PATH = '/api/v1';
 
@@ -9,13 +9,13 @@ export const login = ({ username, password }) => {
       url: `${API_PATH}/login`,
       data: {
         username,
-        password
-      }
-    })
+        password,
+      },
+    });
   } catch (error) {
-    throw Error(error)
+    throw Error(error);
   }
-}
+};
 
 export const signup = ({ username, password }) => {
   try {
@@ -24,10 +24,10 @@ export const signup = ({ username, password }) => {
       url: `${API_PATH}/signup`,
       data: {
         username,
-        password
-      }
-    })
+        password,
+      },
+    });
   } catch (error) {
-    throw Error(error)
+    throw Error(error);
   }
-}
+};

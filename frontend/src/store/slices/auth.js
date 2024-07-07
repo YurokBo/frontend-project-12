@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const slice = createSlice({
   name: 'auth',
@@ -15,8 +15,8 @@ const slice = createSlice({
       localStorage.removeItem('user');
       state.username = null;
       state.token = null;
-    }
-  }
+    },
+  },
 });
 
 export const { actions, reducer } = slice;
