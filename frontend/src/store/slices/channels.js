@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const slice = createSlice({
   name: 'channels',
@@ -7,10 +7,10 @@ export const slice = createSlice({
     activeChannel: {
       name: '',
       id: '',
-      removable: false
+      removable: false,
     },
     activeChannelId: null,
-    channelsNames: []
+    channelsNames: [],
   },
   reducers: {
     setChannels(state, { payload }) {
@@ -27,8 +27,8 @@ export const slice = createSlice({
     },
     setChannelsNames(state, { payload }) {
       state.channelsNames = [...payload];
-    }
-  }
+    },
+  },
 });
 
 export const { actions, reducer } = slice;

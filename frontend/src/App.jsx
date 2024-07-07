@@ -1,12 +1,11 @@
-import { AppRoutes } from "./router";
-import { Header } from "./components/header/Header";
-function App() {
-  return (
-    <>
-      <Header />
-      <AppRoutes />
-    </>
-  );
-}
+import { AppRoutes } from './router';
+import { Header } from './components/header/Header';
+
+const App = () => (
+  <>
+    <Header />
+    <AppRoutes />
+  </>
+);
 
 export default App;

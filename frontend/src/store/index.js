@@ -1,13 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { reducer as authReducer, actions as authActions } from "./slices/auth";
-import { reducer as channelsReducer, actions as channelsActions } from "./slices/channels";
-import { channelsApi } from "./services/channelsApi";
-import { messagesApi } from "./services/messagesApi";
+import { configureStore } from '@reduxjs/toolkit';
+import { reducer as authReducer, actions as authActions } from './slices/auth';
+import { reducer as channelsReducer, actions as channelsActions } from './slices/channels';
+import { channelsApi } from './services/channelsApi';
+import { messagesApi } from './services/messagesApi';
 
 export const actions = {
   ...authActions,
   ...channelsActions,
-}
+};
 
 export default configureStore({
   reducer: {
@@ -22,4 +22,4 @@ export default configureStore({
       channelsApi.middleware,
       messagesApi.middleware,
     ]),
-})
+});

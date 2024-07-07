@@ -1,26 +1,25 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_PATH } from "../api/api";
-
+import { API_PATH } from '../api/api';
 
 export const messagesApi = createApi({
   reducerPath: 'messagesApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${ API_PATH }/messages`,
+    baseUrl: `${API_PATH}/messages`,
     prepareHeaders: (headers, { getState }) => {
       const { auth: { token } } = getState();
 
       if (token) {
-        headers.set('Authorization', `Bearer ${ token }`);
+        headers.set('Authorization', `Bearer ${token}`);
       }
 
       return headers;
     },
   }),
-  tagTypes: [ 'Messages' ],
+  tagTypes: ['Messages'],
   endpoints: (builder) => ({
     getMessages: builder.query({
       query: () => '',
-      providesTags: [ 'Messages' ],
+      providesTags: ['Messages'],
     }),
     addMessage: builder.mutation({
       query: (newMessage) => ({
@@ -28,22 +27,22 @@ export const messagesApi = createApi({
         method: 'POST',
         body: newMessage,
       }),
-      invalidatesTags: [ 'Messages' ],
+      invalidatesTags: ['Messages'],
     }),
     removeMessage: builder.mutation({
       query: (id) => ({
-        url: `${ id }`,
+        url: `${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: [ 'Messages' ],
+      invalidatesTags: ['Messages'],
     }),
     editMessage: builder.mutation({
       query: ({ id, editedMessage }) => ({
-        url: `${ id }`,
+        url: `${id}`,
         method: 'PATCH',
         body: editedMessage,
       }),
-      invalidatesTags: [ 'Messages' ],
+      invalidatesTags: ['Messages'],
     }),
   }),
 });
@@ -52,5 +51,5 @@ export const {
   useGetMessagesQuery,
   useAddMessageMutation,
   useRemoveMessageMutation,
-  useUpdateMessageMutation
+  useUpdateMessageMutation,
 } = messagesApi;
