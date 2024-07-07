@@ -4,7 +4,7 @@ import LoginImage from '../../assets/images/login-image.jpeg'
 import { login } from "../../store/api/api";
 import { useDispatch } from "react-redux";
 import { actions } from "../../store/slices/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export const LoginForm = () => {
@@ -96,7 +96,7 @@ export const LoginForm = () => {
         <Card.Footer className="p-4">
           <div className="text-center">
             <span>Нет аккаунта? </span>
-            <Card.Link href="/signup">Регистрация</Card.Link>
+            <Link to="/signup">Регистрация</Link>
           </div>
         </Card.Footer>
       </Card>
