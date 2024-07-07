@@ -2,10 +2,11 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useFormik } from "formik";
-import { login, signup } from "../../store/api/api";
+import { signup } from "../../store/api/api";
 import { actions } from "../../store/slices/auth";
 import { Button, Card, Col, Container, FloatingLabel, Form, Image, Row } from "react-bootstrap";
 import LoginImage from "../../assets/images/registration-image.jpg";
+import { signUpSchema } from "../../utils/validation";
 
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,9 @@ export const RegistrationForm = () => {
     },
     validateOnChange: true,
     validateOnBlur: true,
+    validationSchema: signUpSchema(),
     onSubmit: values => {
+      console.debug('RegistrationPage values', values);
       signup(values)
         .then(response => {
           dispatch(actions.setUser(response.data));
@@ -29,8 +32,8 @@ export const RegistrationForm = () => {
           navigate('/');
         })
         .catch(error => {
-          if (error.response?.status === 401) {
-            setAuthError('Неверные имя пользователя или пароль');
+          if (error.response?.status === 409) {
+            setAuthError('Такой пользователь уже существует');
             setValidation(false);
           }
         })
@@ -65,7 +68,7 @@ export const RegistrationForm = () => {
                       onChange={ handleChange }
                       value={ formik.values.username }
                       required
-                      isInvalid={ !isValid }
+                      isInvalid={ !formik.isValid || !isValid }
                     />
                   </FloatingLabel>
                 </Form.Group>
@@ -79,12 +82,8 @@ export const RegistrationForm = () => {
                       value={ formik.values.password }
                       autoComplete="current-password"
                       required
-                      isInvalid={ !isValid }
+                      isInvalid={ !formik.isValid || !isValid }
                     />
-                    { !isValid && authError &&
-                      <Form.Control.Feedback type="invalid" tooltip>
-                        { authError }
-                      </Form.Control.Feedback> }
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
@@ -94,18 +93,25 @@ export const RegistrationForm = () => {
                       type="password"
                       placeholder="Подтвердите пароль"
                       onChange={ handleChange }
-                      value={ formik.values.password }
+                      value={ formik.values.confirmPassword }
                       autoComplete="current-password"
                       required
-                      isInvalid={ !isValid }
+                      isInvalid={ !formik.isValid || !isValid }
                     />
-                    { !isValid && authError &&
+                    { !formik.isValid &&
+                      <Form.Control.Feedback type="invalid" tooltip>
+                        { formik.errors.confirmPassword }
+                      </Form.Control.Feedback>
+                    }
+                    {
+                      !isValid &&
                       <Form.Control.Feedback type="invalid" tooltip>
                         { authError }
-                      </Form.Control.Feedback> }
+                      </Form.Control.Feedback>
+                    }
                   </FloatingLabel>
                 </Form.Group>
-                <Button type="submit" variant="outline-primary" value="Войти" className="w-100">
+                <Button type="submit" variant="outline-primary" value="Зарегистрироваться" className="w-100">
                   Зарегистрироваться
                 </Button>
               </Form>
