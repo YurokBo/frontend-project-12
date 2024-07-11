@@ -4,10 +4,12 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { I18nextProvider } from 'react-i18next';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 import { initSocket } from './store/socket/socketApi';
+import i18next from './i18next';
 
 initSocket(store);
 
@@ -16,7 +18,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <I18nextProvider i18n={i18next}>
+          <App />
+        </I18nextProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

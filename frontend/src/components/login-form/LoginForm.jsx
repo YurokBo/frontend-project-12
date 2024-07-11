@@ -5,6 +5,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import LoginImage from '../../assets/images/login-image.jpeg';
 import { login } from '../../store/api/api';
 import { actions } from '../../store/slices/auth';
@@ -14,6 +15,7 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const [authError, setAuthError] = useState(null);
   const [isValid, setValidation] = useState(true);
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -31,7 +33,7 @@ export const LoginForm = () => {
         })
         .catch((error) => {
           if (error.response?.status === 401) {
-            setAuthError('Неверные имя пользователя или пароль');
+            setAuthError('errors.invalidUsernameOrPassword');
             setValidation(false);
           }
         });
@@ -54,15 +56,15 @@ export const LoginForm = () => {
             </Col>
             <Col xl={6}>
               <h1 className="text-center mb-4">
-                Войти
+                {t('auth.login')}
               </h1>
               <Form onSubmit={formik.handleSubmit}>
                 <Form.Group className="form-floating mb-4">
-                  <FloatingLabel label="Ваш ник" className="mb-3">
+                  <FloatingLabel label={t('placeholders.username')} className="mb-3">
                     <Form.Control
                       id="username"
                       type="text"
-                      placeholder="Ваш ник"
+                      placeholder={t('placeholders.username')}
                       onChange={handleChange}
                       value={formik.values.username}
                       required
@@ -71,11 +73,11 @@ export const LoginForm = () => {
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
-                  <FloatingLabel label="Пароль" className="mb-4">
+                  <FloatingLabel label={t('placeholders.password')} className="mb-4">
                     <Form.Control
                       id="password"
                       type="password"
-                      placeholder="Пароль"
+                      placeholder={t('placeholders.password')}
                       onChange={handleChange}
                       value={formik.values.password}
                       autoComplete="current-password"
@@ -85,13 +87,13 @@ export const LoginForm = () => {
                     { !isValid && authError
                       && (
                       <Form.Control.Feedback type="invalid" tooltip>
-                        { authError }
+                        { t(authError) }
                       </Form.Control.Feedback>
                       ) }
                   </FloatingLabel>
                 </Form.Group>
                 <Button type="submit" variant="outline-primary" value="Войти" className="w-100">
-                  Войти
+                  {t('buttons.login')}
                 </Button>
               </Form>
             </Col>
@@ -99,8 +101,10 @@ export const LoginForm = () => {
         </Card.Body>
         <Card.Footer className="p-4">
           <div className="text-center">
-            <span>Нет аккаунта? </span>
-            <Link to="/signup">Регистрация</Link>
+            <span>
+              {t('auth.text')}
+            </span>
+            <Link to="/signup">{t('auth.link')}</Link>
           </div>
         </Card.Footer>
       </Card>
