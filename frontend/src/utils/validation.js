@@ -1,31 +1,28 @@
-import { object, string } from "yup";
+import { object, string } from 'yup';
 
-export const channelNameSchema =  (channels) => object().shape({
+export const channelNameSchema = (channels) => object().shape({
   name: string()
     .required()
     .trim()
-    .min(3, 'Name is too short')
-    .max(20, 'Name is too long')
-    .notOneOf(channels, 'Name should be uniq')
+    .min(3, 'errors.tooShortName')
+    .max(20, 'errors.tooLongName')
+    .notOneOf(channels, 'errors.shouldBeUniq'),
 });
 
 export const signUpSchema = () => object().shape({
   username: string()
     .trim()
     .required()
-    .min(3, 'Name is too short')
-    .max(20, 'Name is too long'),
+    .min(3, 'errors.tooShortName')
+    .max(20, 'errors.tooLongName'),
   password: string()
     .trim()
     .required()
-    .min(6, 'Password is too short'),
+    .min(6, 'errors.tooShortPassword'),
   confirmPassword: string()
     .test(
       'confirmPassword',
-      'Passwords are not confirm',
-      (value, context) => {
-        console.log(value === context.parent.password)
-        return value === context.parent.password
-      },
+      'errors.confirmPassword',
+      (value, context) => value === context.parent.password,
     ),
 });

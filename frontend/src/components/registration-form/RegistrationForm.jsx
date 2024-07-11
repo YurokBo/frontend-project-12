@@ -12,6 +12,7 @@ import {
   Image,
   Row,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { signup } from '../../store/api/api';
 import { actions } from '../../store/slices/auth';
 import LoginImage from '../../assets/images/registration-image.jpg';
@@ -22,6 +23,7 @@ export const RegistrationForm = () => {
   const navigate = useNavigate();
   const [authError, setAuthError] = useState(null);
   const [isValid, setValidation] = useState(true);
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -33,7 +35,6 @@ export const RegistrationForm = () => {
     validateOnBlur: true,
     validationSchema: signUpSchema(),
     onSubmit: (values) => {
-      console.debug('RegistrationPage values', values);
       signup(values)
         .then((response) => {
           dispatch(actions.setUser(response.data));
@@ -65,15 +66,15 @@ export const RegistrationForm = () => {
             </Col>
             <Col>
               <h1 className="text-center mb-4">
-                Регистрация
+                {t('auth.registration')}
               </h1>
               <Form onSubmit={formik.handleSubmit}>
                 <Form.Group className="form-floating mb-4">
-                  <FloatingLabel label="Ваш ник" className="mb-3">
+                  <FloatingLabel label={t('placeholders.username')} className="mb-3">
                     <Form.Control
                       id="username"
                       type="text"
-                      placeholder="Ваш ник"
+                      placeholder={t('placeholders.username')}
                       onChange={handleChange}
                       value={formik.values.username}
                       required
@@ -82,11 +83,11 @@ export const RegistrationForm = () => {
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
-                  <FloatingLabel label="Пароль" className="mb-4">
+                  <FloatingLabel label={t('placeholders.password')} className="mb-4">
                     <Form.Control
                       id="password"
                       type="password"
-                      placeholder="Пароль"
+                      placeholder={t('placeholders.password')}
                       onChange={handleChange}
                       value={formik.values.password}
                       autoComplete="current-password"
@@ -96,11 +97,11 @@ export const RegistrationForm = () => {
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
-                  <FloatingLabel label="Подтвердите пароль" className="mb-4">
+                  <FloatingLabel label={t('placeholders.passwordConfirm')} className="mb-4">
                     <Form.Control
                       id="confirmPassword"
                       type="password"
-                      placeholder="Подтвердите пароль"
+                      placeholder={t('placeholders.passwordConfirm')}
                       onChange={handleChange}
                       value={formik.values.confirmPassword}
                       autoComplete="current-password"
@@ -110,21 +111,21 @@ export const RegistrationForm = () => {
                     { !formik.isValid
                       && (
                       <Form.Control.Feedback type="invalid" tooltip>
-                        { formik.errors.confirmPassword }
+                        { t(formik.errors.confirmPassword) }
                       </Form.Control.Feedback>
                       )}
                     {
                       !isValid
                       && (
                       <Form.Control.Feedback type="invalid" tooltip>
-                        { authError }
+                        { t(authError) }
                       </Form.Control.Feedback>
                       )
                     }
                   </FloatingLabel>
                 </Form.Group>
                 <Button type="submit" variant="outline-primary" value="Зарегистрироваться" className="w-100">
-                  Зарегистрироваться
+                  {t('buttons.registration')}
                 </Button>
               </Form>
             </Col>
