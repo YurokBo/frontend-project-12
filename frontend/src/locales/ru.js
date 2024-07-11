@@ -14,6 +14,7 @@ const ru = {
     buttons: {
       login: 'Войти',
       registration: 'Зарегистрироваться',
+      logOut: 'Выйти',
     },
     errors: {
       invalidUsernameOrPassword: 'Неверные имя пользователя или пароль',
@@ -22,6 +23,18 @@ const ru = {
       confirmPassword: 'Пароли не подтверждаются',
       shouldBeUniq: 'Имя должно быть уникальным',
       tooShortPassword: 'Пароль слишком короткий',
+    },
+    chat: {
+      channels: 'Каналы',
+      messages: {
+        messagesCount_zero: 'сообщений',
+        messagesCount_one: 'сообщение',
+        messagesCount_two: 'сообщения',
+        messagesCount_few: 'сообщения',
+        messagesCount_many: 'сообщений',
+        messagesCount_other: 'сообщений',
+        enterMessage: 'Введите сообщение...',
+      },
     },
   },
 };

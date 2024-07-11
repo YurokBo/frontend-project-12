@@ -1,25 +1,15 @@
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useGetMessagesQuery } from '../../store/services/messagesApi';
 
 export const Messages = ({ channelTitle }) => {
+  const { t } = useTranslation();
   const { data } = useGetMessagesQuery();
   const { activeChannelId } = useSelector((state) => state.channels);
   const filteredMessagesByChannelId = data?.filter(
     (message) => message.channelId === activeChannelId,
   ) || [];
   const messagesCount = filteredMessagesByChannelId.length ?? '0';
-
-  const getMessagesCountText = (count) => {
-    if (count === 0 || count > 4) {
-      return 'сообщений';
-    }
-
-    if (count > 1 && count < 5) {
-      return 'сообщения';
-    }
-
-    return 'сообщение';
-  };
 
   return (
     <>
@@ -33,7 +23,7 @@ export const Messages = ({ channelTitle }) => {
         <span className="text-muted">
           { messagesCount }
           {' '}
-          { getMessagesCountText(messagesCount) }
+          { t('chat.messages.messagesCount', { count: messagesCount }) }
         </span>
       </div>
       <div id="messages-box" className="px-5 chat-messages overflow-auto">
