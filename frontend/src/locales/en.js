@@ -14,6 +14,7 @@ const en = {
     buttons: {
       login: 'Login',
       registration: 'Registration',
+      logOut: 'Log out',
     },
     errors: {
       invalidUsernameOrPassword: 'Invalid username or password',
@@ -22,6 +23,18 @@ const en = {
       confirmPassword: 'Passwords are not confirm',
       shouldBeUniq: 'Name should be uniq',
       tooShortPassword: 'Password is too short',
+    },
+    chat: {
+      channels: 'Channels',
+      messages: {
+        messagesCount_zero: 'message',
+        messagesCount_one: 'message',
+        messagesCount_two: 'messages',
+        messagesCount_few: 'messages',
+        messagesCount_many: 'messages',
+        messagesCount_other: 'messages',
+        enterMessage: 'Enter message...',
+      },
     },
   },
 };

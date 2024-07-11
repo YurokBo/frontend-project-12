@@ -8,6 +8,7 @@ import {
   Tab,
 } from 'react-bootstrap';
 import { PlusLg } from 'react-bootstrap-icons';
+import { useTranslation } from 'react-i18next';
 import { actions } from '../../store';
 import {
   useGetChannelsQuery,
@@ -25,6 +26,7 @@ export const Chat = () => {
   } = useSelector((state) => state.channels);
   const [activeChannelTitle, setActiveChannelTitle] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(actions.setChannels(data));
@@ -53,7 +55,7 @@ export const Chat = () => {
               <Row className="h-100">
                 <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
                   <div className="d-flex mt-1 justify-content-between align-items-center mb-2 ps-4 pe-2 p-4">
-                    <b>Каналы</b>
+                    <b>{t('chat.channels')}</b>
                     <Button
                       type="button"
                       size="sm"

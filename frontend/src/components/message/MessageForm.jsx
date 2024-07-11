@@ -1,5 +1,6 @@
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Send } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
@@ -10,6 +11,7 @@ export const MessageForm = () => {
   const [addMessage, { isLoading, isError }] = useAddMessageMutation();
   const { activeChannelId } = useSelector((state) => state.channels);
   const { username } = useSelector((state) => state.auth);
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -44,7 +46,7 @@ export const MessageForm = () => {
             value={formik.values.message}
             disabled={isLoading}
             autoFocus
-            placeholder="Введите сообщение..."
+            placeholder={t('chat.messages.enterMessage')}
             inputMode="text"
             autoComplete="off"
             /* isInvalid={isError || !formik.isValid} */
