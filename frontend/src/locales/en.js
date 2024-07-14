@@ -29,6 +29,7 @@ const en = {
       confirmPassword: 'Passwords are not confirm',
       shouldBeUniq: 'Name should be uniq',
       tooShortPassword: 'Password is too short',
+      fetchError: 'Network error',
     },
     chat: {
       channels: 'Channels',

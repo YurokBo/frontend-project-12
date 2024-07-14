@@ -41,6 +41,12 @@ export const RenameChannelModal = ({ ...props }) => {
 
       updateChannel({ name: trimmedName, id: channelId })
         .then((response) => {
+          if (response.error?.status === 'FETCH_ERROR') {
+            showToastMessage(t('errors.fetchError'), 'error');
+
+            return;
+          }
+
           dispatch(actions.addChannel({ ...response.data }));
           showToastMessage(t('toastContent.channelRenamed'));
           hide();

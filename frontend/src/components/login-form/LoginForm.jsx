@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import LoginImage from '../../assets/images/login-image.jpeg';
 import { login } from '../../store/api/api';
 import { actions } from '../../store/slices/auth';
+import showToastMessage from '../../utils/toast';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,12 @@ export const LoginForm = () => {
           navigate('/');
         })
         .catch((error) => {
+          if (error?.code === 'ERR_NETWORK') {
+            showToastMessage(t('errors.fetchError'), 'error');
+
+            return;
+          }
+
           if (error.response?.status === 401) {
             setAuthError('errors.invalidUsernameOrPassword');
             setValidation(false);

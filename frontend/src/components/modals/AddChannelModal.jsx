@@ -2,7 +2,6 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-// import { toast } from 'react-toastify';
 import { useAddChannelMutation } from '../../store/services/channelsApi';
 import { actions } from '../../store';
 import { channelNameSchema } from '../../utils/validation';
@@ -32,6 +31,12 @@ export const AddChannelModal = ({ ...props }) => {
 
       addChannel({ name: trimmedName })
         .then((response) => {
+          if (response.error?.status === 'FETCH_ERROR') {
+            showToastMessage(t('errors.fetchError'), 'error');
+
+            return;
+          }
+
           dispatch(actions.addChannel({ ...response.data }));
           showToastMessage(t('toastContent.channelCreated'));
           hide();

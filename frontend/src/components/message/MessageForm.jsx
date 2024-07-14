@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import { Send } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
 import { useAddMessageMutation } from '../../store/services/messagesApi';
+import showToastMessage from '../../utils/toast';
 
 export const MessageForm = () => {
   const inputRef = useRef(null);
@@ -25,11 +26,18 @@ export const MessageForm = () => {
         channelId: activeChannelId,
         username,
       };
-      addMessage(newMessage);
+      addMessage(newMessage)
+        .then((response) => {
+          if (response.error?.status === 'FETCH_ERROR') {
+            showToastMessage(t('errors.fetchError'), 'error');
 
-      if (!isError) {
-        formik.values.message = '';
-      }
+            return;
+          }
+
+          if (!isError) {
+            formik.values.message = '';
+          }
+        });
     },
   });
 
