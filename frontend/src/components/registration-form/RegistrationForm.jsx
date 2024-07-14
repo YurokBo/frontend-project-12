@@ -17,6 +17,7 @@ import { signup } from '../../store/api/api';
 import { actions } from '../../store/slices/auth';
 import LoginImage from '../../assets/images/registration-image.jpg';
 import { signUpSchema } from '../../utils/validation';
+import showToastMessage from '../../utils/toast';
 
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,12 @@ export const RegistrationForm = () => {
           navigate('/');
         })
         .catch((error) => {
+          if (error?.code === 'ERR_NETWORK') {
+            showToastMessage(t('errors.fetchError'), 'error');
+
+            return;
+          }
+
           if (error.response?.status === 409) {
             setAuthError('Такой пользователь уже существует');
             setValidation(false);

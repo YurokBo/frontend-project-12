@@ -29,6 +29,7 @@ const ru = {
       confirmPassword: 'Пароли не подтверждаются',
       shouldBeUniq: 'Имя должно быть уникальным',
       tooShortPassword: 'Пароль слишком короткий',
+      fetchError: 'Ошибка сети',
     },
     chat: {
       channels: 'Каналы',

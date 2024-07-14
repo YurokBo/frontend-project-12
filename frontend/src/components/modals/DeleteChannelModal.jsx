@@ -10,14 +10,20 @@ export const DeleteChannelModal = ({ ...props }) => {
 
   const deleteChannel = () => {
     removeChannel(channelId)
-      .then(() => {
+      .then((response) => {
+        if (response.error?.status === 'FETCH_ERROR') {
+          showToastMessage(t('errors.fetchError'), 'error');
+
+          return;
+        }
+
+        hide();
         showToastMessage(t('toastContent.channelDeleted'));
       })
       .catch((error) => {
         showToastMessage(error.messages, 'error');
         throw Error(error);
       });
-    hide();
   };
 
   return (
