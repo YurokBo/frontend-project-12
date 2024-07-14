@@ -15,6 +15,11 @@ const en = {
       login: 'Login',
       registration: 'Registration',
       logOut: 'Log out',
+      loading: 'Loading…',
+      send: 'Send',
+      cancel: 'Cancel',
+      rename: 'Rename',
+      delete: 'Delete',
     },
     errors: {
       invalidUsernameOrPassword: 'Invalid username or password',
@@ -35,6 +40,10 @@ const en = {
         messagesCount_other: 'messages',
         enterMessage: 'Enter message...',
       },
+    },
+    modals: {
+      addChannel: 'Add channel',
+      renameChannel: 'Rename channel',
     },
   },
 };

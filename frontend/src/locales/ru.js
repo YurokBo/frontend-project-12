@@ -15,6 +15,11 @@ const ru = {
       login: 'Войти',
       registration: 'Зарегистрироваться',
       logOut: 'Выйти',
+      loading: 'Загрузка…',
+      send: 'Отправить',
+      cancel: 'Отменить',
+      rename: 'Переименовать',
+      delete: 'Удалить',
     },
     errors: {
       invalidUsernameOrPassword: 'Неверные имя пользователя или пароль',
@@ -35,6 +40,10 @@ const ru = {
         messagesCount_other: 'сообщений',
         enterMessage: 'Введите сообщение...',
       },
+    },
+    modals: {
+      addChannel: 'Добавить канал',
+      renameChannel: 'Переименовать канал',
     },
   },
 };
