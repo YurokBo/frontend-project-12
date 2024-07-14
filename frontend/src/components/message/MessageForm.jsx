@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Send } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
+import leoProfanity from 'leo-profanity';
 import { useAddMessageMutation } from '../../store/services/messagesApi';
 import showToastMessage from '../../utils/toast';
 
@@ -22,7 +23,7 @@ export const MessageForm = () => {
     validateOnBlur: true,
     onSubmit: (values) => {
       const newMessage = {
-        body: values.message,
+        body: leoProfanity.clean(values.message),
         channelId: activeChannelId,
         username,
       };
