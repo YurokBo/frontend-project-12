@@ -2,6 +2,7 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import leoProfanity from 'leo-profanity';
 import { useAddChannelMutation } from '../../store/services/channelsApi';
 import { actions } from '../../store';
 import { channelNameSchema } from '../../utils/validation';
@@ -27,7 +28,7 @@ export const AddChannelModal = ({ ...props }) => {
     validateOnBlur: true,
     onSubmit: (values) => {
       const { name } = values;
-      const trimmedName = name.trim();
+      const trimmedName = leoProfanity.clean(name.trim());
 
       addChannel({ name: trimmedName })
         .then((response) => {

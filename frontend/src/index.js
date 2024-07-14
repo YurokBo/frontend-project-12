@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
+import leoProfanity from 'leo-profanity';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
@@ -12,6 +13,9 @@ import { initSocket } from './store/socket/socketApi';
 import i18next from './i18next';
 
 initSocket(store);
+
+leoProfanity.add(leoProfanity.getDictionary('ru'));
+leoProfanity.add(leoProfanity.getDictionary('en'));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

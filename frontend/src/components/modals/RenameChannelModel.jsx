@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import leoProfanity from 'leo-profanity';
 import { useUpdateChannelMutation } from '../../store/services/channelsApi';
 import { actions } from '../../store';
 import { channelNameSchema } from '../../utils/validation';
@@ -37,7 +38,7 @@ export const RenameChannelModal = ({ ...props }) => {
     validateOnBlur: true,
     onSubmit: (values) => {
       const { name } = values;
-      const trimmedName = name.trim();
+      const trimmedName = leoProfanity.clean(name.trim());
 
       updateChannel({ name: trimmedName, id: channelId })
         .then((response) => {
