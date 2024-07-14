@@ -1,11 +1,13 @@
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { actions } from '../../store';
 import { DeleteChannelModal } from '../modals/DeleteChannelModal';
 import { RenameChannelModal } from '../modals/RenameChannelModel';
 
 export const Channels = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const { channels, activeChannelId } = useSelector((state) => state.channels);
@@ -65,13 +67,13 @@ export const Channels = () => {
                           })
                         }
                       >
-                        Переименовать
+                        {t('buttons.rename')}
                       </Dropdown.Item>
                       <Dropdown.Item
                         as="button"
                         onClick={() => handleToggleDeleteChannelModal(channel.id)}
                       >
-                        Удалить
+                        {t('buttons.delete')}
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>

@@ -2,11 +2,13 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useUpdateChannelMutation } from '../../store/services/channelsApi';
 import { actions } from '../../store';
 import { channelNameSchema } from '../../utils/validation';
 
 export const RenameChannelModal = ({ ...props }) => {
+  const { t } = useTranslation();
   const {
     show, hide, channelId, channelName,
   } = props;
@@ -57,7 +59,7 @@ export const RenameChannelModal = ({ ...props }) => {
     <Modal show={show} onHide={handleHideModal} centered>
       <Modal.Header closeButton>
         <Modal.Title>
-          Переименовать канал
+          {t('modals.renameChannel')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -81,9 +83,11 @@ export const RenameChannelModal = ({ ...props }) => {
               )}
           </Form.Group>
           <div className="d-flex justify-content-end gap-2">
-            <Button variant="secondary" disabled={isLoading} onClick={handleHideModal}>Отменить</Button>
+            <Button variant="secondary" disabled={isLoading} onClick={handleHideModal}>
+              {t('buttons.cancel')}
+            </Button>
             <Button disabled={isLoading || !formik.values.name.length || !formik.isValid} type="submit">
-              {isLoading ? 'Загрузка…' : 'Отправить'}
+              {t(`buttons.${isLoading ? 'loading' : 'send'}`)}
             </Button>
           </div>
         </Form>

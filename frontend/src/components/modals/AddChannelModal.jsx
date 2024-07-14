@@ -1,11 +1,13 @@
 import { Button, Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useAddChannelMutation } from '../../store/services/channelsApi';
 import { actions } from '../../store';
 import { channelNameSchema } from '../../utils/validation';
 
 export const AddChannelModal = ({ ...props }) => {
+  const { t } = useTranslation();
   const { show, hide, channelsNames } = props;
   const [addChannel, {
     isLoading,
@@ -47,7 +49,7 @@ export const AddChannelModal = ({ ...props }) => {
     <Modal show={show} onHide={handleHideModal} centered>
       <Modal.Header closeButton>
         <Modal.Title>
-          Добавить канал
+          {t('modals.addChannel')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -71,9 +73,11 @@ export const AddChannelModal = ({ ...props }) => {
               )}
           </Form.Group>
           <div className="d-flex justify-content-end gap-2">
-            <Button variant="secondary" disabled={isLoading} onClick={handleHideModal}>Отменить</Button>
+            <Button variant="secondary" disabled={isLoading} onClick={handleHideModal}>
+              {t('buttons.cancel')}
+            </Button>
             <Button disabled={isLoading || !formik.values.name.length || !formik.isValid} type="submit">
-              {isLoading ? 'Загрузка…' : 'Отправить'}
+              {t(`buttons.${isLoading ? 'loading' : 'send'}`)}
             </Button>
           </div>
         </Form>
