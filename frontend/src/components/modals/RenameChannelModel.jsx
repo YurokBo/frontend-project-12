@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useUpdateChannelMutation } from '../../store/services/channelsApi';
 import { actions } from '../../store';
 import { channelNameSchema } from '../../utils/validation';
+import showToastMessage from '../../utils/toast';
 
 export const RenameChannelModal = ({ ...props }) => {
   const { t } = useTranslation();
@@ -41,10 +42,12 @@ export const RenameChannelModal = ({ ...props }) => {
       updateChannel({ name: trimmedName, id: channelId })
         .then((response) => {
           dispatch(actions.addChannel({ ...response.data }));
+          showToastMessage(t('toastContent.channelRenamed'));
           hide();
           formik.values.name = '';
         })
         .catch((error) => {
+          showToastMessage(error.messages, 'error');
           throw Error(error);
         });
     },
@@ -78,7 +81,7 @@ export const RenameChannelModal = ({ ...props }) => {
             { !formik.isValid
               && (
               <Form.Control.Feedback type="invalid">
-                { formik.errors.name }
+                {t(formik.errors.name)}
               </Form.Control.Feedback>
               )}
           </Form.Group>

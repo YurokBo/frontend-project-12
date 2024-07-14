@@ -20,6 +20,7 @@ const ru = {
       cancel: 'Отменить',
       rename: 'Переименовать',
       delete: 'Удалить',
+      deleting: 'Удаление',
     },
     errors: {
       invalidUsernameOrPassword: 'Неверные имя пользователя или пароль',
@@ -44,6 +45,13 @@ const ru = {
     modals: {
       addChannel: 'Добавить канал',
       renameChannel: 'Переименовать канал',
+      deleteChannel: 'Удалить канал',
+      confirmDelete: 'Уверены?',
+    },
+    toastContent: {
+      channelCreated: 'Канал создан',
+      channelDeleted: 'Канал удален',
+      channelRenamed: 'Канал переименован',
     },
   },
 };

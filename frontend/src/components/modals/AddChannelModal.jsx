@@ -2,9 +2,11 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+// import { toast } from 'react-toastify';
 import { useAddChannelMutation } from '../../store/services/channelsApi';
 import { actions } from '../../store';
 import { channelNameSchema } from '../../utils/validation';
+import showToastMessage from '../../utils/toast';
 
 export const AddChannelModal = ({ ...props }) => {
   const { t } = useTranslation();
@@ -31,10 +33,12 @@ export const AddChannelModal = ({ ...props }) => {
       addChannel({ name: trimmedName })
         .then((response) => {
           dispatch(actions.addChannel({ ...response.data }));
+          showToastMessage(t('toastContent.channelCreated'));
           hide();
           formik.values.name = '';
         })
         .catch((error) => {
+          showToastMessage(error.messages, 'error');
           throw Error(error);
         });
     },
@@ -68,7 +72,7 @@ export const AddChannelModal = ({ ...props }) => {
             { !formik.isValid
               && (
               <Form.Control.Feedback type="invalid">
-                { formik.errors.name }
+                {t(formik.errors.name)}
               </Form.Control.Feedback>
               )}
           </Form.Group>
