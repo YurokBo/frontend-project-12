@@ -20,6 +20,7 @@ const en = {
       cancel: 'Cancel',
       rename: 'Rename',
       delete: 'Delete',
+      deleting: 'Deleting',
     },
     errors: {
       invalidUsernameOrPassword: 'Invalid username or password',
@@ -44,6 +45,13 @@ const en = {
     modals: {
       addChannel: 'Add channel',
       renameChannel: 'Rename channel',
+      deleteChannel: 'Delete channel',
+      confirmDelete: 'Are you sure?',
+    },
+    toastContent: {
+      channelCreated: 'Channel created',
+      channelDeleted: 'Channel deleted',
+      channelRenamed: 'Channel renamed',
     },
   },
 };

@@ -1,12 +1,22 @@
 import { Button, Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useRemoveChannelMutation } from '../../store/services/channelsApi';
+import showToastMessage from '../../utils/toast';
 
 export const DeleteChannelModal = ({ ...props }) => {
+  const { t } = useTranslation();
   const { show, hide, channelId } = props;
   const [removeChannel, { isLoading }] = useRemoveChannelMutation();
 
   const deleteChannel = () => {
-    removeChannel(channelId);
+    removeChannel(channelId)
+      .then(() => {
+        showToastMessage(t('toastContent.channelDeleted'));
+      })
+      .catch((error) => {
+        showToastMessage(error.messages, 'error');
+        throw Error(error);
+      });
     hide();
   };
 
@@ -14,16 +24,20 @@ export const DeleteChannelModal = ({ ...props }) => {
     <Modal show={show} onHide={hide} centered>
       <Modal.Header closeButton>
         <Modal.Title>
-          Удалить канал
+          {t('modals.deleteChannel')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="lead">Уверены?</p>
+        <p className="lead">
+          {t('modals.confirmDelete')}
+        </p>
 
         <div className="d-flex justify-content-end gap-2">
-          <Button variant="secondary" disabled={isLoading} onClick={hide}>Отменить</Button>
+          <Button variant="secondary" disabled={isLoading} onClick={hide}>
+            {t('buttons.cancel')}
+          </Button>
           <Button type="button" variant="danger" onClick={deleteChannel}>
-            { isLoading ? 'Удаление…' : 'Удалить' }
+            {t(`buttons.${isLoading ? 'deleting' : 'delete'}`)}
           </Button>
         </div>
       </Modal.Body>
