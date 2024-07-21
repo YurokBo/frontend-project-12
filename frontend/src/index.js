@@ -19,16 +19,16 @@ leoProfanity.add(leoProfanity.getDictionary('ru'));
 leoProfanity.add(leoProfanity.getDictionary('en'));
 
 const rollbarConfig = {
-  accessToken: 'c3e3993a84fb4e40a2f0f21ce8966092',
-  environment: 'production',
-  // accessToken: '23bd92fae990454b8789ad3be0601895',
-  // environment: 'testenv',
+  // accessToken: 'c3e3993a84fb4e40a2f0f21ce8966092',
+  // environment: 'production',
+  accessToken: '23bd92fae990454b8789ad3be0601895',
+  environment: 'testenv',
 };
 
-// function TestError() {
-//   const a = null;
-//   return a.hello();
-// }
+function TestError() {
+  const a = null;
+  return a.hello();
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -37,7 +37,7 @@ root.render(
       <ErrorBoundary>
         <BrowserRouter>
           <I18nextProvider i18n={i18next}>
-            {/* <TestError /> */}
+            <TestError />
             <App />
           </I18nextProvider>
         </BrowserRouter>
