@@ -7,10 +7,8 @@
   "type": "module",
   "workspaces": ["frontend"],
   "scripts": {
-    "build": "npm run build --prefix frontend",
-    "start": "npx start-server -s ./frontend/build",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "cd frontend && npm ci"
+    "build": "npm ci && npm run build --prefix frontend",
+    "start": "npx start-server -s ./frontend/build"
   },
   "repository": {
     "type": "git",
