@@ -19,7 +19,7 @@ leoProfanity.add(leoProfanity.getDictionary('ru'));
 leoProfanity.add(leoProfanity.getDictionary('en'));
 
 const rollbarConfig = {
-  accessToken: '23bd92fae990454b8789ad3be0601895',
+  accessToken: process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN /* 23bd92fae990454b8789ad3be0601895 */,
   environment: 'production',
   captureUncaught: true,
   captureUnhandledRejections: true,
