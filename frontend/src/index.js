@@ -19,11 +19,13 @@ leoProfanity.add(leoProfanity.getDictionary('ru'));
 leoProfanity.add(leoProfanity.getDictionary('en'));
 
 const rollbarConfig = {
-  accessToken: process.env.REACT_APP_POST_CLIENT_ITEM_ACCESS_TOKEN,
+  accessToken: process.env.POST_CLIENT_ITEM,
   environment: 'production',
   captureUncaught: true,
   captureUnhandledRejections: true,
 };
+
+console.log(rollbarConfig.accessToken);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
