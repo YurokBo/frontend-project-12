@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
-// import { ErrorBoundary } from '@rollbar/react';
+import { ErrorBoundary, Provider as RollbarProvider } from '@rollbar/react';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
@@ -18,31 +18,27 @@ initSocket(store);
 leoProfanity.add(leoProfanity.getDictionary('ru'));
 leoProfanity.add(leoProfanity.getDictionary('en'));
 
-// const rollbarConfig = {
-//   // accessToken: 'c3e3993a84fb4e40a2f0f21ce8966092',
-//   // environment: 'production',
-//   accessToken: '23bd92fae990454b8789ad3be0601895',
-//   environment: 'testenv',
-// };
-
-// function TestError() {
-//   const a = null;
-//   return a.hello();
-// }
+const rollbarConfig = {
+  accessToken: process.env.REACT_APP_POST_CLIENT_ITEM_ACCESS_TOKEN,
+  environment: 'production',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      {/*  <ErrorBoundary> */}
-      <BrowserRouter>
-        <I18nextProvider i18n={i18next}>
-          {/* <TestError /> */}
-          <App />
-        </I18nextProvider>
-      </BrowserRouter>
-      {/* </ErrorBoundary> */}
-    </Provider>
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
+        <StoreProvider store={store}>
+          <BrowserRouter>
+            <I18nextProvider i18n={i18next}>
+              <App />
+            </I18nextProvider>
+          </BrowserRouter>
+        </StoreProvider>
+      </ErrorBoundary>
+    </RollbarProvider>
   </React.StrictMode>,
 );
 
