@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRollbar } from '@rollbar/react';
 import LoginImage from '../../assets/images/login-image.jpeg';
 import { login } from '../../store/api/api';
 import { actions } from '../../store/slices/auth';
@@ -17,6 +18,7 @@ export const LoginForm = () => {
   const [authError, setAuthError] = useState(null);
   const [isValid, setValidation] = useState(true);
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   const formik = useFormik({
     initialValues: {
@@ -33,6 +35,8 @@ export const LoginForm = () => {
           navigate('/');
         })
         .catch((error) => {
+          rollbar.error('LoginForm', error);
+
           if (error?.code === 'ERR_NETWORK') {
             showToastMessage(t('errors.fetchError'), 'error');
 
@@ -42,6 +46,7 @@ export const LoginForm = () => {
           if (error.response?.status === 401) {
             setAuthError('errors.invalidUsernameOrPassword');
             setValidation(false);
+            showToastMessage(t('errors.invalidUsernameOrPassword'), 'error');
           }
         });
     },
