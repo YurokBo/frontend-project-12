@@ -19,7 +19,7 @@ leoProfanity.add(leoProfanity.getDictionary('ru'));
 leoProfanity.add(leoProfanity.getDictionary('en'));
 
 const rollbarConfig = {
-  accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
+  accessToken: 'c3e3993a84fb4e40a2f0f21ce8966092',
   environment: 'production',
   // accessToken: '23bd92fae990454b8789ad3be0601895',
   // environment: 'testenv',
