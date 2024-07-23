@@ -1,13 +1,12 @@
-import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { actions } from '../../store';
 import { DeleteChannelModal } from '../modals/DeleteChannelModal';
 import { RenameChannelModal } from '../modals/RenameChannelModel';
+import { DefaultChannelButton } from './DefaultChannelButton';
+import { RemovableChannelButton } from './RemovableChannelButton';
 
 export const Channels = () => {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const { channels, activeChannelId } = useSelector((state) => state.channels);
@@ -41,54 +40,22 @@ export const Channels = () => {
             <li key={channel.id}>
               { channel.removable
                 ? (
-                  <Dropdown className="d-flex justify-content-between w-100" as={ButtonGroup}>
-                    <Button
-                      type="button"
-                      key={channel.id}
-                      className="w-100 border-0 rounded-start-3 text-start text-truncate p-2"
-                      variant={channel.id === activeChannelId ? 'secondary' : null}
-                      onClick={() => handleActiveChannelId(channel.id)}
-                    >
-                      <span className="me-1">#</span>
-                      <span>{ channel.name }</span>
-                    </Button>
-                    <Dropdown.Toggle
-                      className="flex-grow-0 py-0 px-2"
-                      split
-                      variant={channel.id === activeChannelId ? 'secondary' : null}
-                    />
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        as="button"
-                        onClick={
-                          () => handleToggleRenameChannelModal({
-                            id: channel.id,
-                            name: channel.name,
-                          })
-                        }
-                      >
-                        {t('buttons.rename')}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        as="button"
-                        onClick={() => handleToggleDeleteChannelModal(channel.id)}
-                      >
-                        {t('buttons.delete')}
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <RemovableChannelButton
+                    name={channel.name}
+                    id={channel.id}
+                    activeChannelId={activeChannelId}
+                    handleActiveChannelId={handleActiveChannelId}
+                    handleToggleRenameChannelModal={handleToggleRenameChannelModal}
+                    handleToggleDeleteChannelModal={handleToggleDeleteChannelModal}
+                  />
                 )
                 : (
-                  <Button
-                    type="button"
-                    key={channel.id}
-                    variant={channel.id === activeChannelId ? 'secondary' : null}
-                    className="w-100 rounded-3 text-start p-2"
-                    onClick={() => handleActiveChannelId(channel.id)}
-                  >
-                    <span className="me-1">#</span>
-                    <span>{ channel.name }</span>
-                  </Button>
+                  <DefaultChannelButton
+                    name={channel.name}
+                    id={channel.id}
+                    activeChannelId={activeChannelId}
+                    handleActiveChannelId={handleActiveChannelId}
+                  />
                 ) }
             </li>
           ))
