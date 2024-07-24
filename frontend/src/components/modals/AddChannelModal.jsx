@@ -1,10 +1,8 @@
 import { Button, Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
 import { useAddChannelMutation } from '../../store/services/channelsApi';
-import { actions } from '../../store';
 import { channelNameSchema } from '../../utils/validation';
 import showToastMessage from '../../utils/toast';
 
@@ -14,7 +12,6 @@ export const AddChannelModal = ({ ...props }) => {
   const [addChannel, {
     isLoading,
   }] = useAddChannelMutation();
-  const dispatch = useDispatch();
 
   const INITIAL_VALUES = {
     name: '',
@@ -38,7 +35,6 @@ export const AddChannelModal = ({ ...props }) => {
             return;
           }
 
-          dispatch(actions.addChannel({ ...response.data }));
           showToastMessage(t('toastContent.channelCreated'));
           hide();
           formik.values.name = '';

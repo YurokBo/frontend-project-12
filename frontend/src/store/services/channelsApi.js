@@ -15,7 +15,6 @@ export const channelsApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Channel'],
   endpoints: (builder) => ({
     getChannels: builder.query({
       query: () => '',
@@ -34,14 +33,11 @@ export const channelsApi = createApi({
       }),
     }),
     updateChannel: builder.mutation({
-      query: ({ id, name }) => {
-        console.log(name);
-        return {
-          url: `${id}`,
-          method: 'PATCH',
-          body: { name },
-        };
-      },
+      query: ({ id, name }) => ({
+        url: `${id}`,
+        method: 'PATCH',
+        body: { name },
+      }),
     }),
   }),
 });
