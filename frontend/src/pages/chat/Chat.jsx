@@ -37,7 +37,7 @@ export const Chat = () => {
       dispatch(actions.setChannelsNames(data.map(({ name }) => name)));
       setActiveChannelTitle(activeChannel.name);
     }
-  }, [data, channels, activeChannel]);
+  }, [data, channels, activeChannel, dispatch]);
 
   const handleToggleAddChannelModal = () => {
     setModalOpen(!isModalOpen);
