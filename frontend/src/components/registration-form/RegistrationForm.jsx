@@ -60,12 +60,6 @@ export const RegistrationForm = () => {
     },
   });
 
-  // const handleChange = (event) => {
-  //   setAuthError(null);
-  //   setValidation(true);
-  //   formik.handleChange(event);
-  // };
-
   useEffect(() => {
     console.log(formik.errors);
     console.log(formik.isValid);
@@ -126,12 +120,18 @@ export const RegistrationForm = () => {
                       required
                       isInvalid={!formik.isValid || !isValid}
                     />
-                    {/* { !formik.isValid */}
-                    {/*  && ( */}
-                    {/*  <Form.Control.Feedback type="invalid" tooltip> */}
-                    {/*    { t(formik.errors.confirmPassword) } */}
-                    {/*  </Form.Control.Feedback> */}
-                    {/*  )} */}
+                    { formik.errors.confirmPassword
+                      && (
+                      <Form.Control.Feedback type="invalid" tooltip>
+                        { t(formik.errors.confirmPassword) }
+                      </Form.Control.Feedback>
+                      )}
+                    { formik.errors.password
+                      && (
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          { t(formik.errors.password) }
+                        </Form.Control.Feedback>
+                      )}
                     {
                       !isValid
                       && (
