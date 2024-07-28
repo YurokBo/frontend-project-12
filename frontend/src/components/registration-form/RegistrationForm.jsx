@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import {
   Button,
@@ -13,6 +13,7 @@ import {
   Row,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useRollbar } from '@rollbar/react';
 import { signup } from '../../store/api/api';
 import { actions } from '../../store/slices/auth';
 import LoginImage from '../../assets/images/registration-image.jpg';
@@ -25,6 +26,7 @@ export const RegistrationForm = () => {
   const [authError, setAuthError] = useState(null);
   const [isValid, setValidation] = useState(true);
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   const formik = useFormik({
     initialValues: {
@@ -50,6 +52,7 @@ export const RegistrationForm = () => {
           }
 
           if (error.response?.status === 409) {
+            rollbar.error('RegistrationPage sendData error', error);
             setAuthError('Такой пользователь уже существует');
             setValidation(false);
           }
@@ -57,11 +60,16 @@ export const RegistrationForm = () => {
     },
   });
 
-  const handleChange = (event) => {
-    setAuthError(null);
-    setValidation(true);
-    formik.handleChange(event);
-  };
+  // const handleChange = (event) => {
+  //   setAuthError(null);
+  //   setValidation(true);
+  //   formik.handleChange(event);
+  // };
+
+  useEffect(() => {
+    console.log(formik.errors);
+    console.log(formik.isValid);
+  }, [formik]);
 
   return (
     <Container className="col-12 col-md-8 col-xxl-6">
@@ -82,7 +90,8 @@ export const RegistrationForm = () => {
                       id="username"
                       type="text"
                       placeholder={t('placeholders.username')}
-                      onChange={handleChange}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.username}
                       required
                       isInvalid={!formik.isValid || !isValid}
@@ -95,7 +104,8 @@ export const RegistrationForm = () => {
                       id="password"
                       type="password"
                       placeholder={t('placeholders.password')}
-                      onChange={handleChange}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.password}
                       autoComplete="current-password"
                       required
@@ -109,18 +119,19 @@ export const RegistrationForm = () => {
                       id="confirmPassword"
                       type="password"
                       placeholder={t('placeholders.passwordConfirm')}
-                      onChange={handleChange}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.confirmPassword}
                       autoComplete="current-password"
                       required
                       isInvalid={!formik.isValid || !isValid}
                     />
-                    { !formik.isValid
-                      && (
-                      <Form.Control.Feedback type="invalid" tooltip>
-                        { t(formik.errors.confirmPassword) }
-                      </Form.Control.Feedback>
-                      )}
+                    {/* { !formik.isValid */}
+                    {/*  && ( */}
+                    {/*  <Form.Control.Feedback type="invalid" tooltip> */}
+                    {/*    { t(formik.errors.confirmPassword) } */}
+                    {/*  </Form.Control.Feedback> */}
+                    {/*  )} */}
                     {
                       !isValid
                       && (
