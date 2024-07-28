@@ -104,7 +104,7 @@ export const LoginForm = () => {
                       ) }
                   </FloatingLabel>
                 </Form.Group>
-                <Button type="submit" variant="outline-primary" value="Войти" className="w-100">
+                <Button type="submit" variant="outline-primary" className="w-100">
                   {t('buttons.login')}
                 </Button>
               </Form>
