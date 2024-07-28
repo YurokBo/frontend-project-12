@@ -7,7 +7,7 @@ const en = {
       link: 'Registration',
     },
     placeholders: {
-      username: 'Your nickname',
+      username: 'User name',
       password: 'Password',
       passwordConfirm: 'Confirm the password',
     },
