@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import {
   Button,
@@ -37,8 +37,8 @@ export const RegistrationForm = () => {
     validateOnChange: true,
     validateOnBlur: true,
     validationSchema: signUpSchema(),
-    onSubmit: (values) => {
-      signup(values)
+    onSubmit: async (values) => {
+      await signup(values)
         .then((response) => {
           dispatch(actions.setUser(response.data));
           setValidation(true);
@@ -59,11 +59,6 @@ export const RegistrationForm = () => {
         });
     },
   });
-
-  useEffect(() => {
-    console.log(formik.errors);
-    console.log(formik.isValid);
-  }, [formik]);
 
   return (
     <Container className="col-12 col-md-8 col-xxl-6">
@@ -142,7 +137,7 @@ export const RegistrationForm = () => {
                     }
                   </FloatingLabel>
                 </Form.Group>
-                <Button type="submit" variant="outline-primary" value="Зарегистрироваться" className="w-100">
+                <Button type="submit" variant="outline-primary" className="w-100">
                   {t('buttons.registration')}
                 </Button>
               </Form>
