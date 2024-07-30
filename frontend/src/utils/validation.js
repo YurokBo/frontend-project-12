@@ -13,8 +13,8 @@ export const signUpSchema = () => object().shape({
   username: string()
     .trim()
     .required()
-    .min(3, 'errors.tooShortName')
-    .max(20, 'errors.tooLongName'),
+    .min(3, 'errors.invalidUserName')
+    .max(20, 'errors.invalidUserName'),
   password: string()
     .trim()
     .required()
