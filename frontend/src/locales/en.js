@@ -24,12 +24,12 @@ const en = {
     },
     errors: {
       invalidUsernameOrPassword: 'Invalid username or password',
-      tooShortName: 'Name is too short',
-      tooLongName: 'Name is too long',
+      invalidUserName: 'From 3 to 20 characters',
       confirmPassword: 'Passwords are not confirm',
       shouldBeUniq: 'Name should be uniq',
-      tooShortPassword: 'Password is too short',
+      tooShortPassword: 'At least 6 characters',
       fetchError: 'Network error',
+      userExists: 'This user already exists',
     },
     chat: {
       channels: 'Channels',

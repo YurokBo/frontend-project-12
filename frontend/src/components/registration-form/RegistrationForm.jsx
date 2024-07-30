@@ -53,7 +53,7 @@ export const RegistrationForm = () => {
 
           if (error.response?.status === 409) {
             rollbar.error('RegistrationPage sendData error', error);
-            setAuthError('Такой пользователь уже существует');
+            setAuthError(t('errors.userExists'));
             setValidation(false);
           }
         });
@@ -83,8 +83,14 @@ export const RegistrationForm = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.username}
                       required
-                      isInvalid={!formik.isValid || !isValid}
+                      isInvalid={formik.errors.username || !isValid}
                     />
+                    { formik.errors.username
+                      && (
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          { t(formik.errors.username) }
+                        </Form.Control.Feedback>
+                      )}
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
@@ -98,8 +104,14 @@ export const RegistrationForm = () => {
                       value={formik.values.password}
                       autoComplete="current-password"
                       required
-                      isInvalid={!formik.isValid || !isValid}
+                      isInvalid={formik.errors.password || !isValid}
                     />
+                    { formik.errors.password
+                      && (
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          { t(formik.errors.password) }
+                        </Form.Control.Feedback>
+                      )}
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
@@ -113,20 +125,14 @@ export const RegistrationForm = () => {
                       value={formik.values.confirmPassword}
                       autoComplete="current-password"
                       required
-                      isInvalid={!formik.isValid || !isValid}
+                      isInvalid={formik.errors.confirmPassword || !isValid}
                     />
                     { formik.errors.confirmPassword
-                      && (
+                    && (
                       <Form.Control.Feedback type="invalid" tooltip>
                         { t(formik.errors.confirmPassword) }
                       </Form.Control.Feedback>
-                      )}
-                    { formik.errors.password
-                      && (
-                        <Form.Control.Feedback type="invalid" tooltip>
-                          { t(formik.errors.password) }
-                        </Form.Control.Feedback>
-                      )}
+                    )}
                     {
                       !isValid
                       && (

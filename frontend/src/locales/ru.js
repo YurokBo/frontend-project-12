@@ -24,12 +24,12 @@ const ru = {
     },
     errors: {
       invalidUsernameOrPassword: 'Неверные имя пользователя или пароль',
-      tooShortName: 'Имя слишком короткое',
-      tooLongName: 'Имя слишком длинное',
-      confirmPassword: 'Пароли не подтверждаются',
+      invalidUserName: 'От 3 до 20 символов',
+      confirmPassword: 'Пароли должны совпадать',
       shouldBeUniq: 'Имя должно быть уникальным',
-      tooShortPassword: 'Пароль слишком короткий',
+      tooShortPassword: 'Не менее 6 символов',
       fetchError: 'Ошибка сети',
+      userExists: 'Такой пользователь уже существует',
     },
     chat: {
       channels: 'Каналы',
