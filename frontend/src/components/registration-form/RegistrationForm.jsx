@@ -13,6 +13,7 @@ import {
   Row,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useRollbar } from '@rollbar/react';
 import { signup } from '../../store/api/api';
 import { actions } from '../../store/slices/auth';
 import LoginImage from '../../assets/images/registration-image.jpg';
@@ -25,6 +26,7 @@ export const RegistrationForm = () => {
   const [authError, setAuthError] = useState(null);
   const [isValid, setValidation] = useState(true);
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   const formik = useFormik({
     initialValues: {
@@ -35,8 +37,8 @@ export const RegistrationForm = () => {
     validateOnChange: true,
     validateOnBlur: true,
     validationSchema: signUpSchema(),
-    onSubmit: (values) => {
-      signup(values)
+    onSubmit: async (values) => {
+      await signup(values)
         .then((response) => {
           dispatch(actions.setUser(response.data));
           setValidation(true);
@@ -50,18 +52,13 @@ export const RegistrationForm = () => {
           }
 
           if (error.response?.status === 409) {
-            setAuthError('Такой пользователь уже существует');
+            rollbar.error('RegistrationPage sendData error', error);
+            setAuthError(t('errors.userExists'));
             setValidation(false);
           }
         });
     },
   });
-
-  const handleChange = (event) => {
-    setAuthError(null);
-    setValidation(true);
-    formik.handleChange(event);
-  };
 
   return (
     <Container className="col-12 col-md-8 col-xxl-6">
@@ -82,11 +79,18 @@ export const RegistrationForm = () => {
                       id="username"
                       type="text"
                       placeholder={t('placeholders.username')}
-                      onChange={handleChange}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.username}
                       required
-                      isInvalid={!formik.isValid || !isValid}
+                      isInvalid={formik.errors.username || !isValid}
                     />
+                    { formik.errors.username
+                      && (
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          { t(formik.errors.username) }
+                        </Form.Control.Feedback>
+                      )}
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
@@ -95,12 +99,19 @@ export const RegistrationForm = () => {
                       id="password"
                       type="password"
                       placeholder={t('placeholders.password')}
-                      onChange={handleChange}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.password}
                       autoComplete="current-password"
                       required
-                      isInvalid={!formik.isValid || !isValid}
+                      isInvalid={formik.errors.password || !isValid}
                     />
+                    { formik.errors.password
+                      && (
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          { t(formik.errors.password) }
+                        </Form.Control.Feedback>
+                      )}
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
@@ -109,18 +120,19 @@ export const RegistrationForm = () => {
                       id="confirmPassword"
                       type="password"
                       placeholder={t('placeholders.passwordConfirm')}
-                      onChange={handleChange}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.confirmPassword}
                       autoComplete="current-password"
                       required
-                      isInvalid={!formik.isValid || !isValid}
+                      isInvalid={formik.errors.confirmPassword || !isValid}
                     />
-                    { !formik.isValid
-                      && (
+                    { formik.errors.confirmPassword
+                    && (
                       <Form.Control.Feedback type="invalid" tooltip>
                         { t(formik.errors.confirmPassword) }
                       </Form.Control.Feedback>
-                      )}
+                    )}
                     {
                       !isValid
                       && (
@@ -131,7 +143,7 @@ export const RegistrationForm = () => {
                     }
                   </FloatingLabel>
                 </Form.Group>
-                <Button type="submit" variant="outline-primary" value="Зарегистрироваться" className="w-100">
+                <Button type="submit" variant="outline-primary" className="w-100">
                   {t('buttons.registration')}
                 </Button>
               </Form>
