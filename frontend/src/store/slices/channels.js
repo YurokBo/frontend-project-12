@@ -28,6 +28,9 @@ export const slice = createSlice({
     setChannelsNames(state, { payload }) {
       state.channelsNames = [...payload];
     },
+    setActiveChannelTitle(state, { payload }) {
+      state.channelsNames = [...payload];
+    },
   },
 });
 

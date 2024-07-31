@@ -12,12 +12,14 @@ export const RemovableChannelButton = (props) => {
     handleToggleDeleteChannelModal,
   } = props;
 
+  const variant = id === activeChannelId ? 'secondary' : null;
+
   return (
     <Dropdown className="d-flex justify-content-between w-100" as={ButtonGroup}>
       <Button
         type="button"
         className="w-100 border-0 rounded-start-3 text-start text-truncate p-2"
-        variant={id === activeChannelId ? 'secondary' : null}
+        variant={variant}
         onClick={() => handleActiveChannelId(id)}
       >
         <span className="me-1">#</span>
@@ -26,7 +28,7 @@ export const RemovableChannelButton = (props) => {
       <Dropdown.Toggle
         className="flex-grow-0 py-0 px-2"
         split
-        variant={id === activeChannelId ? 'secondary' : null}
+        variant={variant}
       />
       <Dropdown.Menu>
         <Dropdown.Item

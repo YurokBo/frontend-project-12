@@ -22,9 +22,8 @@ export const Chat = () => {
   const { data, isLoading } = useGetChannelsQuery();
   const dispatch = useDispatch();
   const {
-    channels, activeChannel, activeChannelId, channelsNames,
+    channels, activeChannelId, channelsNames,
   } = useSelector((state) => state.channels);
-  const [activeChannelTitle, setActiveChannelTitle] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const { t } = useTranslation();
 
@@ -35,9 +34,8 @@ export const Chat = () => {
       dispatch(actions.setActiveChannel(data[0]));
       dispatch(actions.setActiveChannelId(data[0].id));
       dispatch(actions.setChannelsNames(data.map(({ name }) => name)));
-      setActiveChannelTitle(activeChannel.name);
     }
-  }, [data, channels, activeChannel, dispatch]);
+  }, [data, channels, dispatch]);
 
   const handleToggleAddChannelModal = () => {
     setModalOpen(!isModalOpen);
@@ -70,7 +68,7 @@ export const Chat = () => {
                   <Channels />
                 </Col>
                 <Col className="d-flex flex-column h-100 p-0">
-                  <Messages channelTitle={activeChannelTitle} />
+                  <Messages />
                   <MessageForm />
                 </Col>
               </Row>

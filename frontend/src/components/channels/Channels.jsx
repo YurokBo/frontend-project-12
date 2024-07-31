@@ -19,6 +19,7 @@ export const Channels = () => {
 
   const handleActiveChannelId = (id) => {
     dispatch(actions.setActiveChannelId(id));
+    dispatch(actions.setActiveChannel(channels.find((channel) => id === channel.id)));
   };
 
   const handleToggleDeleteChannelModal = (id) => {
