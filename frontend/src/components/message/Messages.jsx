@@ -17,6 +17,7 @@ export const Messages = () => {
         <p className="m-0">
           <b>
             #
+            {' '}
             { activeChannel.name }
           </b>
         </p>
