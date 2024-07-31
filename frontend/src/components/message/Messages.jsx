@@ -2,10 +2,10 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useGetMessagesQuery } from '../../store/services/messagesApi';
 
-export const Messages = ({ channelTitle }) => {
+export const Messages = () => {
   const { t } = useTranslation();
   const { data } = useGetMessagesQuery();
-  const { activeChannelId } = useSelector((state) => state.channels);
+  const { activeChannelId, activeChannel } = useSelector((state) => state.channels);
   const filteredMessagesByChannelId = data?.filter(
     (message) => message.channelId === activeChannelId,
   ) || [];
@@ -17,7 +17,7 @@ export const Messages = ({ channelTitle }) => {
         <p className="m-0">
           <b>
             #
-            { channelTitle }
+            { activeChannel.name }
           </b>
         </p>
         <span className="text-muted">
