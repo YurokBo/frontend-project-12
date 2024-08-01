@@ -31,8 +31,10 @@ export const Chat = () => {
     dispatch(actions.setChannels(data));
 
     if (data) {
-      dispatch(actions.setActiveChannel(data[0]));
-      dispatch(actions.setActiveChannelId(data[0].id));
+      const activeChannel = data.find((channel) => channel.name === 'general');
+
+      dispatch(actions.setActiveChannel(activeChannel));
+      dispatch(actions.setActiveChannelId(activeChannel.id));
       dispatch(actions.setChannelsNames(data.map(({ name }) => name)));
     }
   }, [data, channels, dispatch]);
