@@ -37,8 +37,8 @@ export const RegistrationForm = () => {
     validateOnChange: true,
     validateOnBlur: true,
     validationSchema: signUpSchema(),
-    onSubmit: async (values) => {
-      await signup(values)
+    onSubmit: (values) => {
+      signup(values)
         .then((response) => {
           dispatch(actions.setUser(response.data));
           setValidation(true);
