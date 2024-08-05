@@ -74,9 +74,8 @@ export const RegistrationForm = () => {
               </h1>
               <Form onSubmit={formik.handleSubmit}>
                 <Form.Group className="form-floating mb-4">
-                  <FloatingLabel label={t('placeholders.username')} className="mb-3">
+                  <FloatingLabel controlId="username" label={t('placeholders.username')} className="mb-3">
                     <Form.Control
-                      id="username"
                       type="text"
                       placeholder={t('placeholders.username')}
                       onChange={formik.handleChange}
@@ -94,9 +93,8 @@ export const RegistrationForm = () => {
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
-                  <FloatingLabel label={t('placeholders.password')} className="mb-4">
+                  <FloatingLabel controlId="password" label={t('placeholders.password')} className="mb-4">
                     <Form.Control
-                      id="password"
                       type="password"
                       placeholder={t('placeholders.password')}
                       onChange={formik.handleChange}
@@ -115,9 +113,8 @@ export const RegistrationForm = () => {
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
-                  <FloatingLabel label={t('placeholders.passwordConfirm')} className="mb-4">
+                  <FloatingLabel controlId="confirmPassword" label={t('placeholders.passwordConfirm')} className="mb-4">
                     <Form.Control
-                      id="confirmPassword"
                       type="password"
                       placeholder={t('placeholders.passwordConfirm')}
                       onChange={formik.handleChange}
