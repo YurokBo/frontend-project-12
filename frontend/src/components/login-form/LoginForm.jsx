@@ -72,10 +72,10 @@ export const LoginForm = () => {
               </h1>
               <Form onSubmit={formik.handleSubmit}>
                 <Form.Group className="form-floating mb-4">
-                  <FloatingLabel controlId="username" label={t('placeholders.username')} className="mb-3">
+                  <FloatingLabel controlId="username" label={t('placeholders.nickname')} className="mb-3">
                     <Form.Control
                       type="text"
-                      placeholder={t('placeholders.username')}
+                      placeholder={t('placeholders.nickname')}
                       onChange={handleChange}
                       value={formik.values.username}
                       required
