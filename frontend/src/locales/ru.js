@@ -7,7 +7,8 @@ const ru = {
       link: 'Регистрация',
     },
     placeholders: {
-      username: 'Ваш ник',
+      nickname: 'Ваш ник',
+      username: 'Имя пользователя',
       password: 'Пароль',
       passwordConfirm: 'Подтвердите пароль',
     },
