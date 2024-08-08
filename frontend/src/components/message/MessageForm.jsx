@@ -1,5 +1,5 @@
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Send } from 'react-bootstrap-icons';
@@ -38,9 +38,14 @@ export const MessageForm = () => {
           if (!isError) {
             formik.values.message = '';
           }
+          inputRef.current.focus();
         });
     },
   });
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [isLoading]);
 
   return (
     <div className="mt-auto px-5 py-3">
@@ -68,13 +73,6 @@ export const MessageForm = () => {
           >
             <Send size={18} />
           </Button>
-          {/* {(isError || !formik.isValid) && ( */ }
-          {/*  <Form.Control.Feedback type="invalid" tooltip> */ }
-          {/*    {addMessageError?.error} */ }
-          {/*    {' '} */ }
-          {/*    {t(formik.errors?.message)} */ }
-          {/*  </Form.Control.Feedback> */ }
-          {/* )} */ }
         </InputGroup>
       </Form>
     </div>
