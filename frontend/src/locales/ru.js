@@ -42,6 +42,7 @@ const ru = {
         messagesCount_many: 'сообщений',
         messagesCount_other: 'сообщений',
         enterMessage: 'Введите сообщение...',
+        newMessage: 'Новое сообщение',
       },
     },
     modals: {

@@ -42,6 +42,7 @@ const en = {
         messagesCount_many: 'messages',
         messagesCount_other: 'messages',
         enterMessage: 'Enter message...',
+        newMessage: 'New message',
       },
     },
     modals: {

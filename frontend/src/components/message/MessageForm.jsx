@@ -58,7 +58,7 @@ export const MessageForm = () => {
             placeholder={t('chat.messages.enterMessage')}
             inputMode="text"
             autoComplete="off"
-            /* isInvalid={isError || !formik.isValid} */
+            aria-label={t('message.newMessage')}
           />
           <Button
             className="ms-1"
