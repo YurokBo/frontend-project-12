@@ -60,6 +60,7 @@ export const Chat = () => {
                       type="button"
                       size="sm"
                       variant="outline-primary"
+                      aria-label={t('modals.addChannel')}
                       className="p-1 text-primary btn btn-group-vertical"
                       onClick={handleToggleAddChannelModal}
                     >
