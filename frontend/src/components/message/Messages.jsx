@@ -32,8 +32,7 @@ export const Messages = () => {
           <div className="text-break mb-2" key={message.id}>
             <b>
               { message.username }
-              :
-              {' '}
+              {': '}
             </b>
             { message.body }
           </div>

@@ -38,28 +38,27 @@ export const MessageForm = () => {
           if (!isError) {
             formik.values.message = '';
           }
-          inputRef.current.focus();
         });
     },
   });
 
   useEffect(() => {
     inputRef.current.focus();
-  }, [isLoading]);
+  }, [isLoading, formik.isSubmitting]);
 
   return (
     <div className="mt-auto px-5 py-3">
       <Form className="p-0 rounded-3 border" noValidate onSubmit={formik.handleSubmit}>
         <InputGroup hasValidation>
           <Form.Control
+            id="message"
             className="border-0 p-0 ps-2"
             name="message"
             ref={inputRef}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.message}
-            disabled={isLoading}
-            autoFocus
+            disabled={isLoading || formik.isSubmitting}
             placeholder={t('chat.messages.enterMessage')}
             inputMode="text"
             autoComplete="off"
@@ -69,7 +68,7 @@ export const MessageForm = () => {
             className="ms-1"
             variant="outline-secondary"
             type="submit"
-            disabled={!formik.values.message.length || isLoading}
+            disabled={!formik.values.message.length || isLoading || formik.isSubmitting}
           >
             <Send size={18} />
           </Button>
