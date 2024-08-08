@@ -62,7 +62,7 @@ export const MessageForm = () => {
             placeholder={t('chat.messages.enterMessage')}
             inputMode="text"
             autoComplete="off"
-            aria-label={t('message.newMessage')}
+            aria-label={t('chat.messages.newMessage')}
           />
           <Button
             className="ms-1"
