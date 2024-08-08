@@ -58,7 +58,7 @@ export const MessageForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.message}
-            disabled={isLoading || formik.isSubmitting}
+            disabled={isLoading || !formik.isSubmitting}
             placeholder={t('chat.messages.enterMessage')}
             inputMode="text"
             autoComplete="off"
@@ -68,7 +68,7 @@ export const MessageForm = () => {
             className="ms-1"
             variant="outline-secondary"
             type="submit"
-            disabled={!formik.values.message.length || isLoading || formik.isSubmitting}
+            disabled={!formik.values.message.length || isLoading || !formik.isSubmitting}
           >
             <Send size={18} />
           </Button>
