@@ -46,7 +46,6 @@ export const LoginForm = () => {
           if (error.response?.status === 401) {
             setAuthError('errors.invalidUsernameOrPassword');
             setValidation(false);
-            showToastMessage(t('errors.invalidUsernameOrPassword'), 'error');
           }
         });
     },
