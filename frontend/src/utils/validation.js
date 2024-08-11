@@ -4,8 +4,8 @@ export const channelNameSchema = (channels) => object().shape({
   name: string()
     .required()
     .trim()
-    .min(3, 'errors.tooShortName')
-    .max(20, 'errors.tooLongName')
+    .min(3, 'errors.invalidUserName')
+    .max(20, 'errors.invalidUserName')
     .notOneOf(channels, 'errors.shouldBeUniq'),
 });
 
