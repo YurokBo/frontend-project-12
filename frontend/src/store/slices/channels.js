@@ -15,13 +15,22 @@ export const slice = createSlice({
   },
   reducers: {
     setChannels(state, { payload }) {
-      state.channels = payload;
+      return {
+        ...state,
+        channels: payload,
+      };
     },
     setActiveChannel(state, { payload }) {
-      state.activeChannel = { ...payload };
+      return {
+        ...state,
+        activeChannel: payload,
+      };
     },
     setActiveChannelId(state, { payload }) {
-      state.activeChannelId = payload;
+      return {
+        ...state,
+        activeChannelId: payload,
+      };
     },
     addChannel(state, { payload }) {
       state.channels.push(payload);

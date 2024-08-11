@@ -8,13 +8,20 @@ const slice = createSlice({
       const { username, token } = payload;
       localStorage.setItem('user', JSON.stringify({ username, token }));
 
-      state.username = username;
-      state.token = token;
+      return {
+        ...state,
+        username,
+        token,
+      };
     },
     removeUser(state) {
       localStorage.removeItem('user');
-      state.username = null;
-      state.token = null;
+
+      return {
+        ...state,
+        username: null,
+        token: null,
+      };
     },
   },
 });
