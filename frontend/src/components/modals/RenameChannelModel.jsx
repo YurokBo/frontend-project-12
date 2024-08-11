@@ -75,6 +75,7 @@ export const RenameChannelModal = ({ ...props }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-2">
+            <Form.Label htmlFor="name" visuallyHidden>{t('modals.channelName')}</Form.Label>
             <Form.Control
               id="name"
               type="text"
