@@ -20,7 +20,7 @@ import LoginImage from '../../assets/images/registration-image.jpg';
 import { signUpSchema } from '../../utils/validation';
 import showToastMessage from '../../utils/toast';
 
-export const RegistrationForm = () => {
+const RegistrationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [authError, setAuthError] = useState(null);
@@ -151,3 +151,5 @@ export const RegistrationForm = () => {
     </Container>
   );
 };
+
+export default RegistrationForm;

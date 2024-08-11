@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { actions } from '../../store';
-import { DeleteChannelModal } from '../modals/DeleteChannelModal';
-import { RenameChannelModal } from '../modals/RenameChannelModel';
-import { DefaultChannelButton } from './DefaultChannelButton';
-import { RemovableChannelButton } from './RemovableChannelButton';
+import DeleteChannelModal from '../modals/DeleteChannelModal';
+import RenameChannelModal from '../modals/RenameChannelModel';
+import DefaultChannelButton from './DefaultChannelButton';
+import RemovableChannelButton from './RemovableChannelButton';
 
-export const Channels = () => {
+const Channels = () => {
   const dispatch = useDispatch();
 
   const { channels, activeChannelId } = useSelector((state) => state.channels);
@@ -79,3 +79,5 @@ export const Channels = () => {
     </>
   );
 };
+
+export default Channels;

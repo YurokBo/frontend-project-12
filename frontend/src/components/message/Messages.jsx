@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useGetMessagesQuery } from '../../store/services/messagesApi';
 
-export const Messages = () => {
+const Messages = () => {
   const { t } = useTranslation();
   const { data } = useGetMessagesQuery();
   const { activeChannelId, activeChannel } = useSelector((state) => state.channels);
@@ -41,3 +41,5 @@ export const Messages = () => {
     </>
   );
 };
+
+export default Messages;

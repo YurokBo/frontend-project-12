@@ -8,7 +8,7 @@ import leoProfanity from 'leo-profanity';
 import { useAddMessageMutation } from '../../store/services/messagesApi';
 import showToastMessage from '../../utils/toast';
 
-export const MessageForm = () => {
+const MessageForm = () => {
   const inputRef = useRef(null);
   const [addMessage, { isLoading, isError }] = useAddMessageMutation();
   const { activeChannelId } = useSelector((state) => state.channels);
@@ -77,3 +77,5 @@ export const MessageForm = () => {
     </div>
   );
 };
+
+export default MessageForm;

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useRemoveChannelMutation } from '../../store/services/channelsApi';
 import showToastMessage from '../../utils/toast';
 
-export const DeleteChannelModal = ({ ...props }) => {
+const DeleteChannelModal = ({ ...props }) => {
   const { t } = useTranslation();
   const { show, hide, channelId } = props;
   const [removeChannel, { isLoading }] = useRemoveChannelMutation();
@@ -50,3 +50,5 @@ export const DeleteChannelModal = ({ ...props }) => {
     </Modal>
   );
 };
+
+export default DeleteChannelModal;

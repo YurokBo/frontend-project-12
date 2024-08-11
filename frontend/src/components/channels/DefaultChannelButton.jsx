@@ -1,6 +1,6 @@
 import { Button } from 'react-bootstrap';
 
-export const DefaultChannelButton = (props) => {
+const DefaultChannelButton = (props) => {
   const {
     id, activeChannelId, handleActiveChannelId, name,
   } = props;
@@ -19,3 +19,5 @@ export const DefaultChannelButton = (props) => {
     </Button>
   );
 };
+
+export default DefaultChannelButton;

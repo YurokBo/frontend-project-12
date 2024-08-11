@@ -13,12 +13,12 @@ import { actions } from '../../store';
 import {
   useGetChannelsQuery,
 } from '../../store/services/channelsApi';
-import { AddChannelModal } from '../../components/modals/AddChannelModal';
-import { MessageForm } from '../../components/message/MessageForm';
-import { Messages } from '../../components/message/Messages';
-import { Channels } from '../../components/channels/Channels';
+import AddChannelModal from '../../components/modals/AddChannelModal';
+import MessageForm from '../../components/message/MessageForm';
+import Messages from '../../components/message/Messages';
+import Channels from '../../components/channels/Channels';
 
-export const Chat = () => {
+const Chat = () => {
   const { data, isLoading } = useGetChannelsQuery();
   const dispatch = useDispatch();
   const {
@@ -87,3 +87,5 @@ export const Chat = () => {
     </div>
   );
 };
+
+export default Chat;
