@@ -18,7 +18,7 @@ export const RemovableChannelButton = (props) => {
     <Dropdown className="d-flex justify-content-between w-100" as={ButtonGroup}>
       <Button
         type="button"
-        className="w-100 border-0 rounded-start-3 text-start text-truncate p-2"
+        className="w-100 rounded-0 text-start text-truncate"
         variant={variant}
         onClick={() => handleActiveChannelId(id)}
       >
