@@ -50,6 +50,7 @@ const en = {
       renameChannel: 'Rename channel',
       deleteChannel: 'Delete channel',
       confirmDelete: 'Are you sure?',
+      channelName: 'Channel name',
     },
     toastContent: {
       channelCreated: 'Channel created',
