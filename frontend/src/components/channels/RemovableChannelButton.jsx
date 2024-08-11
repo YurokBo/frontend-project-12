@@ -30,7 +30,7 @@ export const RemovableChannelButton = (props) => {
         split
         variant={variant}
       >
-        <span className="visually-hidden">{t('channel.toggleMenu')}</span>
+        <span className="visually-hidden">{t('buttons.toggleMenu')}</span>
       </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item
