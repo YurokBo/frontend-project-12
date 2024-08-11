@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-export const RemovableChannelButton = (props) => {
+const RemovableChannelButton = (props) => {
   const { t } = useTranslation();
   const {
     id,
@@ -54,3 +54,5 @@ export const RemovableChannelButton = (props) => {
     </Dropdown>
   );
 };
+
+export default RemovableChannelButton;

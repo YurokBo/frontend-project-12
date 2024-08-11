@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { actions } from '../../store';
 
-export const Header = () => {
+const Header = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
@@ -21,3 +21,5 @@ export const Header = () => {
     </Navbar>
   );
 };
+
+export default Header;

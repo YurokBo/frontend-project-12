@@ -12,7 +12,7 @@ import { login } from '../../store/api/api';
 import { actions } from '../../store/slices/auth';
 import showToastMessage from '../../utils/toast';
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [authError, setAuthError] = useState(null);
@@ -120,3 +120,5 @@ export const LoginForm = () => {
     </Container>
   );
 };
+
+export default LoginForm;

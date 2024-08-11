@@ -3,7 +3,7 @@ import { messagesApi } from '../services/messagesApi';
 import { channelsApi } from '../services/channelsApi';
 import { actions } from '../index';
 
-export const initSocket = (store) => {
+const initSocket = (store) => {
   const socket = io();
 
   socket.on('newMessage', (payload) => {
@@ -31,3 +31,5 @@ export const initSocket = (store) => {
     }));
   });
 };
+
+export default initSocket;

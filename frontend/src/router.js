@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Login } from './pages/login/Login';
-import { NotFound } from './pages/not-found/NotFound';
-import { Chat } from './pages/chat/Chat';
-import { PrivateRoute } from './components/private-route/PrivateRoute';
-import { Registration } from './pages/registration/Registration';
+import Login from './pages/login/Login';
+import NotFound from './pages/not-found/NotFound';
+import Chat from './pages/chat/Chat';
+import PrivateRoute from './components/private-route/PrivateRoute';
+import Registration from './pages/registration/Registration';
 
 export const AppRoutes = () => {
   const auth = useSelector((state) => state.auth);

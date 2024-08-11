@@ -10,7 +10,7 @@ import { ErrorBoundary, Provider as RollbarProvider } from '@rollbar/react';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
-import { initSocket } from './store/socket/socketApi';
+import initSocket from './store/socket/socketApi';
 import i18next from './i18next';
 
 initSocket(store);

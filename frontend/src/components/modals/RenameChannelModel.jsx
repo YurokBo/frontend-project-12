@@ -9,7 +9,7 @@ import { actions } from '../../store';
 import { channelNameSchema } from '../../utils/validation';
 import showToastMessage from '../../utils/toast';
 
-export const RenameChannelModal = ({ ...props }) => {
+const RenameChannelModal = ({ ...props }) => {
   const { t } = useTranslation();
   const {
     show, hide, channelId, channelName,
@@ -106,3 +106,5 @@ export const RenameChannelModal = ({ ...props }) => {
     </Modal>
   );
 };
+
+export default RenameChannelModal;
