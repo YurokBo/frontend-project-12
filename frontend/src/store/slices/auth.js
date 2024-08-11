@@ -10,6 +10,8 @@ const slice = createSlice({
 
       state.username = username;
       state.token = token;
+
+      return state;
     },
     removeUser(state) {
       localStorage.removeItem('user');

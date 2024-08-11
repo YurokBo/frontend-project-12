@@ -6,7 +6,7 @@ import Chat from './pages/chat/Chat';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import Registration from './pages/registration/Registration';
 
-export const AppRoutes = () => {
+const AppRoutes = () => {
   const auth = useSelector((state) => state.auth);
   const isAllowed = Boolean(auth.token);
   const redirectPath = isAllowed ? '/' : '/login';
@@ -25,3 +25,5 @@ export const AppRoutes = () => {
     </Routes>
   );
 };
+
+export default AppRoutes;
