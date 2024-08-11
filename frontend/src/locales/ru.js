@@ -22,6 +22,7 @@ const ru = {
       rename: 'Переименовать',
       delete: 'Удалить',
       deleting: 'Удаление',
+      toggleMenu: 'Управление каналом',
     },
     errors: {
       invalidUsernameOrPassword: 'Неверные имя пользователя или пароль',
