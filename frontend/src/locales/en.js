@@ -22,6 +22,7 @@ const en = {
       rename: 'Rename',
       delete: 'Delete',
       deleting: 'Deleting',
+      toggleMenu: 'Channel control',
     },
     errors: {
       invalidUsernameOrPassword: 'Invalid username or password',

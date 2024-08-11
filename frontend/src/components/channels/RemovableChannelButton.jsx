@@ -29,7 +29,9 @@ export const RemovableChannelButton = (props) => {
         className="flex-grow-0 py-0 px-2"
         split
         variant={variant}
-      />
+      >
+        <span className="visually-hidden">{t('channel.toggleMenu')}</span>
+      </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item
           as="button"
