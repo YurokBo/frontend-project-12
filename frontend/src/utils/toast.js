@@ -6,7 +6,7 @@ const showToastMessage = (message, toastType = 'success') => {
     autoClose: 5000,
     closeOnClick: true,
     pauseOnHover: true,
-    theme: 'colored',
+    theme: 'light',
   });
 };
 
