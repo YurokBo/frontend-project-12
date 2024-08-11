@@ -11,7 +11,7 @@ export const DefaultChannelButton = (props) => {
     <Button
       type="button"
       variant={variant}
-      className="w-100 rounded-3 text-start p-2"
+      className="w-100 rounded-0 text-start text-truncate"
       onClick={() => handleActiveChannelId(id)}
     >
       <span className="me-1">#</span>
