@@ -11,6 +11,7 @@ export const slice = createSlice({
     },
     activeChannelId: null,
     channelsNames: [],
+    inc: 0,
   },
   reducers: {
     setChannels(state, { payload }) {
@@ -26,9 +27,11 @@ export const slice = createSlice({
       state.channels.push(payload);
     },
     setChannelsNames(state, { payload }) {
-      state.channelsNames = [...payload];
+      state.channelsNames.push(payload);
     },
   },
 });
 
-export const { actions, reducer } = slice;
+export const { actions } = slice;
+
+export default slice.reducer;
