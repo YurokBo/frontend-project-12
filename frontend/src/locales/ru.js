@@ -50,6 +50,7 @@ const ru = {
       renameChannel: 'Переименовать канал',
       deleteChannel: 'Удалить канал',
       confirmDelete: 'Уверены?',
+      channelName: 'Имя канала',
     },
     toastContent: {
       channelCreated: 'Канал создан',
