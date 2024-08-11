@@ -15,10 +15,10 @@ export const slice = createSlice({
   },
   reducers: {
     setChannels(state, { payload }) {
-      state.channels.push(payload);
+      state.channels = payload;
     },
     setActiveChannel(state, { payload }) {
-      state.activeChannel = payload;
+      state.activeChannel = { ...payload };
     },
     setActiveChannelId(state, { payload }) {
       state.activeChannelId = payload;
