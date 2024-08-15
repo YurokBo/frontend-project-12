@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/YurokBo/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/YurokBo/frontend-project-12/actions)",
+  "description": "Simplified version of Slack chat",
   "main": "src/index.js",
   "private": true,
   "type": "module",

@@ -25,13 +25,13 @@ const RenameChannelModal = ({ ...props }) => {
     setOldChannelName(channelName);
   }, [channelName]);
 
-  const INITIAL_VALUES = {
+  const initialValues = {
     name: oldChannelName,
   };
 
   const formik = useFormik({
     initialValues: {
-      ...INITIAL_VALUES,
+      ...initialValues,
     },
     enableReinitialize: true,
     validationSchema: channelNameSchema(channelsNames),
@@ -62,7 +62,7 @@ const RenameChannelModal = ({ ...props }) => {
 
   const handleHideModal = () => {
     hide();
-    formik.handleReset({ ...INITIAL_VALUES });
+    formik.handleReset({ ...initialValues });
   };
 
   return (
