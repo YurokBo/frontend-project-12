@@ -11,7 +11,6 @@ export const slice = createSlice({
     },
     activeChannelId: null,
     channelsNames: [],
-    inc: 0,
   },
   reducers: {
     setChannels(state, { payload }) {

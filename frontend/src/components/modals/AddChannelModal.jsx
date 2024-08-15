@@ -17,13 +17,13 @@ const AddChannelModal = ({ ...props }) => {
 
   const dispatch = useDispatch();
 
-  const INITIAL_VALUES = {
+  const initialValues = {
     name: '',
   };
 
   const formik = useFormik({
     initialValues: {
-      ...INITIAL_VALUES,
+      ...initialValues,
     },
     validationSchema: channelNameSchema(channelsNames),
     validateOnBlur: true,
@@ -57,7 +57,7 @@ const AddChannelModal = ({ ...props }) => {
 
   const handleHideModal = () => {
     hide();
-    formik.handleReset({ ...INITIAL_VALUES });
+    formik.handleReset({ ...initialValues });
   };
 
   return (
