@@ -4,10 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { actions } from '../../store';
 import AddChannelModal from './AddChannelModal';
 import RenameChannelModal from './RenameChannelModel';
+import DeleteChannelModal from './DeleteChannelModal';
 
 const modalComponents = {
   add: AddChannelModal,
   rename: RenameChannelModal,
+  delete: DeleteChannelModal,
 };
 
 const BaseModal = () => {

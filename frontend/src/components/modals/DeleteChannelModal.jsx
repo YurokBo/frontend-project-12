@@ -1,12 +1,14 @@
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { useRemoveChannelMutation } from '../../store/services/channelsApi';
 import showToastMessage from '../../utils/toast';
 
-const DeleteChannelModal = ({ ...props }) => {
+const DeleteChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation();
-  const { show, hide, channelId } = props;
   const [removeChannel, { isLoading }] = useRemoveChannelMutation();
+
+  const { channelId } = useSelector((state) => state.modal);
 
   const deleteChannel = () => {
     removeChannel(channelId)
@@ -17,7 +19,7 @@ const DeleteChannelModal = ({ ...props }) => {
           return;
         }
 
-        hide();
+        handleCloseModal();
         showToastMessage(t('toastContent.channelDeleted'));
       })
       .catch((error) => {
@@ -27,27 +29,20 @@ const DeleteChannelModal = ({ ...props }) => {
   };
 
   return (
-    <Modal show={show} onHide={hide} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>
-          {t('modals.deleteChannel')}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <p className="lead">
-          {t('modals.confirmDelete')}
-        </p>
+    <>
+      <p className="lead">
+        {t('modals.confirmDelete')}
+      </p>
 
-        <div className="d-flex justify-content-end gap-2">
-          <Button variant="secondary" disabled={isLoading} onClick={hide}>
-            {t('buttons.cancel')}
-          </Button>
-          <Button type="button" variant="danger" onClick={deleteChannel}>
-            {t(`buttons.${isLoading ? 'deleting' : 'delete'}`)}
-          </Button>
-        </div>
-      </Modal.Body>
-    </Modal>
+      <div className="d-flex justify-content-end gap-2">
+        <Button variant="secondary" disabled={isLoading} onClick={handleCloseModal}>
+          {t('buttons.cancel')}
+        </Button>
+        <Button type="button" variant="danger" onClick={deleteChannel}>
+          {t(`buttons.${isLoading ? 'deleting' : 'delete'}`)}
+        </Button>
+      </div>
+    </>
   );
 };
 
