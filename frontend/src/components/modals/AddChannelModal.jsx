@@ -1,21 +1,25 @@
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useAddChannelMutation } from '../../store/services/channelsApi';
 import { channelNameSchema } from '../../utils/validation';
 import showToastMessage from '../../utils/toast';
 import { actions } from '../../store';
 
-const AddChannelModal = ({ ...props }) => {
+const AddChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation();
-  const { show, hide, channelsNames } = props;
   const [addChannel, {
     isLoading,
   }] = useAddChannelMutation();
-
   const dispatch = useDispatch();
+
+  const { channels } = useSelector((state) => state.channels);
+  const channelsNames = channels.map(({ name }) => name);
+
+  const [isSendDisabled, setSendDisabled] = useState(false);
 
   const initialValues = {
     name: '',
@@ -42,7 +46,7 @@ const AddChannelModal = ({ ...props }) => {
           const { data } = response;
 
           showToastMessage(t('toastContent.channelCreated'));
-          hide();
+          handleCloseModal();
           formik.values.name = '';
 
           dispatch(actions.setActiveChannelId(data.id));
@@ -55,50 +59,43 @@ const AddChannelModal = ({ ...props }) => {
     },
   });
 
-  const handleHideModal = () => {
-    hide();
-    formik.handleReset({ ...initialValues });
-  };
+  useEffect(() => {
+    setSendDisabled(isLoading
+      || !formik.values.name.length
+      || !formik.isValid
+      || formik.isSubmitting);
+  }, [isLoading, formik.values.name.length, formik.isValid, formik.isSubmitting]);
 
   return (
-    <Modal show={show} onHide={handleHideModal} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>
-          {t('modals.addChannel')}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={formik.handleSubmit}>
-          <Form.Group className="mb-2">
-            <Form.Label htmlFor="name" visuallyHidden>{t('modals.channelName')}</Form.Label>
-            <Form.Control
-              id="name"
-              type="text"
-              autoFocus
-              required
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
-              isInvalid={!formik.isValid}
-            />
-            { !formik.isValid
+    <Form onSubmit={formik.handleSubmit}>
+      <Form.Group className="mb-2">
+        <Form.Label htmlFor="name" visuallyHidden>{t('modals.channelName')}</Form.Label>
+        <Form.Control
+          id="name"
+          type="text"
+          autoFocus
+          required
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.name}
+          isInvalid={!formik.isValid}
+        />
+        { !formik.isValid
               && (
               <Form.Control.Feedback type="invalid">
                 {t(formik.errors.name)}
               </Form.Control.Feedback>
               )}
-          </Form.Group>
-          <div className="d-flex justify-content-end gap-2">
-            <Button variant="secondary" disabled={isLoading} onClick={handleHideModal}>
-              {t('buttons.cancel')}
-            </Button>
-            <Button disabled={isLoading || !formik.values.name.length || !formik.isValid} type="submit">
-              {t(`buttons.${isLoading ? 'loading' : 'send'}`)}
-            </Button>
-          </div>
-        </Form>
-      </Modal.Body>
-    </Modal>
+      </Form.Group>
+      <div className="d-flex justify-content-end gap-2">
+        <Button variant="secondary" disabled={isLoading} onClick={handleCloseModal}>
+          {t('buttons.cancel')}
+        </Button>
+        <Button disabled={isSendDisabled} type="submit">
+          {t(`buttons.${isLoading ? 'loading' : 'send'}`)}
+        </Button>
+      </div>
+    </Form>
   );
 };
 

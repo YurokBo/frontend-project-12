@@ -32,6 +32,7 @@ const ru = {
       tooShortPassword: 'Не менее 6 символов',
       fetchError: 'Ошибка сети',
       userExists: 'Такой пользователь уже существует',
+      requiredField: 'Обязательное поле',
     },
     chat: {
       channels: 'Каналы',

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect/* , useState */ } from 'react';
 import {
   Button,
   Col,
@@ -13,18 +13,19 @@ import { actions } from '../../store';
 import {
   useGetChannelsQuery,
 } from '../../store/services/channelsApi';
-import AddChannelModal from '../../components/modals/AddChannelModal';
+// import AddChannelModal from '../../components/modals/AddChannelModal';
 import MessageForm from '../../components/message/MessageForm';
 import Messages from '../../components/message/Messages';
 import Channels from '../../components/channels/Channels';
+import BaseModal from '../../components/modals/BaseModal';
 
 const Chat = () => {
   const { data, isLoading } = useGetChannelsQuery();
   const dispatch = useDispatch();
   const {
-    channels, activeChannelId, channelsNames,
+    channels, activeChannelId, /* channelsNames, */
   } = useSelector((state) => state.channels);
-  const [isModalOpen, setModalOpen] = useState(false);
+  // const [isModalOpen, setModalOpen] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -35,12 +36,15 @@ const Chat = () => {
 
       dispatch(actions.setActiveChannel(activeChannel));
       dispatch(actions.setActiveChannelId(activeChannel.id));
-      dispatch(actions.setChannelsNames(data.map(({ name }) => name)));
     }
   }, [data, channels, dispatch]);
 
-  const handleToggleAddChannelModal = () => {
-    setModalOpen(!isModalOpen);
+  // const handleToggleAddChannelModal = () => {
+  //   setModalOpen(!isModalOpen);
+  // };
+
+  const openBaseModal = () => {
+    dispatch(actions.openModal({ componentName: 'add', modalTitle: 'modals.addChannel' }));
   };
 
   return (
@@ -62,7 +66,8 @@ const Chat = () => {
                       variant="outline-primary"
                       aria-label={t('modals.addChannel')}
                       className="p-1 text-primary btn btn-group-vertical"
-                      onClick={handleToggleAddChannelModal}
+                      onClick={openBaseModal}
+                      // onClick={handleToggleAddChannelModal}
                     >
                       <PlusLg />
                       <span className="visually-hidden">+</span>
@@ -77,11 +82,12 @@ const Chat = () => {
               </Row>
             </Tab.Container>
             )}
-            <AddChannelModal
-              show={isModalOpen}
-              hide={() => handleToggleAddChannelModal()}
-              channelsNames={channelsNames}
-            />
+            {/* <AddChannelModal */}
+            {/*  show={isModalOpen} */}
+            {/*  hide={() => handleToggleAddChannelModal()} */}
+            {/*  channelsNames={channelsNames} */}
+            {/* /> */}
+            <BaseModal />
           </Container>
         )}
     </div>
