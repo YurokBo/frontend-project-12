@@ -1,36 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { channelsApi } from '../services/channelsApi';
 
 export const slice = createSlice({
   name: 'channels',
   initialState: {
-    channels: [],
-    activeChannel: {
-      name: '',
-      id: '',
-      removable: false,
-    },
     activeChannelId: null,
-    channelsNames: [],
   },
   reducers: {
-    setChannels(state, { payload }) {
-      return {
+    setActiveChannelId: (state, { payload }) => ({
+      ...state,
+      activeChannelId: payload,
+    }),
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      channelsApi.endpoints.getChannels.matchFulfilled,
+      (state, { payload }) => ({
         ...state,
-        channels: payload,
-      };
-    },
-    setActiveChannel(state, { payload }) {
-      return {
+        activeChannelId: payload[0].id,
+      }),
+    ).addMatcher(
+      channelsApi.endpoints.addChannel.matchFulfilled,
+      (state, { payload: { id } }) => ({
         ...state,
-        activeChannel: payload,
-      };
-    },
-    setActiveChannelId(state, { payload }) {
-      return {
-        ...state,
-        activeChannelId: payload,
-      };
-    },
+        activeChannelId: id,
+      }),
+    );
   },
 });
 

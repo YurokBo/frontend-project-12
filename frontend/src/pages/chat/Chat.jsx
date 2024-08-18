@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect/* , useState */ } from 'react';
 import {
   Button,
   Col,
@@ -19,23 +18,12 @@ import Channels from '../../components/channels/Channels';
 import BaseModal from '../../components/modals/BaseModal';
 
 const Chat = () => {
-  const { data, isLoading } = useGetChannelsQuery();
+  const { data: channels, isLoading } = useGetChannelsQuery();
   const dispatch = useDispatch();
   const {
-    channels, activeChannelId, /* channelsNames, */
+    activeChannelId,
   } = useSelector((state) => state.channels);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    dispatch(actions.setChannels(data));
-
-    if (data) {
-      const activeChannel = data.find((channel) => channel.name === 'general');
-
-      dispatch(actions.setActiveChannel(activeChannel));
-      dispatch(actions.setActiveChannelId(activeChannel.id));
-    }
-  }, [data, channels, dispatch]);
 
   const handleOpenBaseModal = () => {
     dispatch(actions.openModal({ componentName: 'add', modalTitle: 'modals.addChannel' }));
@@ -66,16 +54,16 @@ const Chat = () => {
                       <span className="visually-hidden">+</span>
                     </Button>
                   </div>
-                  <Channels />
+                  <Channels channels={channels} />
                 </Col>
                 <Col className="d-flex flex-column h-100 p-0">
-                  <Messages />
+                  <Messages channels={channels} />
                   <MessageForm />
                 </Col>
               </Row>
             </Tab.Container>
             )}
-            <BaseModal />
+            <BaseModal channels={channels} />
           </Container>
         )}
     </div>

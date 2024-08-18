@@ -12,7 +12,7 @@ const modalComponents = {
   delete: DeleteChannelModal,
 };
 
-const BaseModal = () => {
+const BaseModal = ({ channels }) => {
   const { isModalOpened, componentName, modalTitle } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -30,7 +30,10 @@ const BaseModal = () => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {ModalComponent && <ModalComponent handleCloseModal={handleCloseModal} />}
+        {
+          ModalComponent
+          && <ModalComponent channels={channels} handleCloseModal={handleCloseModal} />
+        }
       </Modal.Body>
     </Modal>
   );

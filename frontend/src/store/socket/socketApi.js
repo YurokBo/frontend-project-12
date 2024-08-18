@@ -15,12 +15,15 @@ const initSocket = (store) => {
   socket.on('newChannel', (payload) => {
     store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
       draftChannels.push(payload);
-      store.dispatch(actions.setActiveChannelId(payload.id));
     }));
   });
 
   socket.on('removeChannel', (payload) => {
-    store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => draftChannels.filter((channel) => channel.id !== payload.id)));
+    store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
+      const newChannels = draftChannels.filter((channel) => channel.id !== payload.id);
+      store.dispatch(actions.setActiveChannelId(newChannels[0].id));
+      return newChannels;
+    }));
   });
 
   socket.on('renameChannel', (payload) => {
