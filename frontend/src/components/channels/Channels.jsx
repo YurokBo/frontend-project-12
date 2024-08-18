@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { actions } from '../../store';
 import DeleteChannelModal from '../modals/DeleteChannelModal';
-import RenameChannelModal from '../modals/RenameChannelModel';
 import DefaultChannelButton from './DefaultChannelButton';
 import RemovableChannelButton from './RemovableChannelButton';
 
@@ -13,9 +12,6 @@ const Channels = () => {
 
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [channelId, setChannelId] = useState('');
-
-  const [isRenameModalOpen, setRenameModalOpen] = useState(false);
-  const [channelName, setChannelName] = useState('');
 
   const handleActiveChannelId = (id) => {
     const activeChannel = channels.find((channel) => id === channel.id);
@@ -29,10 +25,8 @@ const Channels = () => {
     setChannelId(id);
   };
 
-  const handleToggleRenameChannelModal = ({ id, name } = { id: '', name: '' }) => {
-    setChannelId(id);
-    setChannelName(name);
-    setRenameModalOpen(!isRenameModalOpen);
+  const openBaseModal = (channelId) => {
+    dispatch(actions.openModal({ componentName: 'rename', modalTitle: 'modals.addChannel', channelId }));
   };
 
   return (
@@ -48,7 +42,7 @@ const Channels = () => {
                     id={channel.id}
                     activeChannelId={activeChannelId}
                     handleActiveChannelId={handleActiveChannelId}
-                    handleToggleRenameChannelModal={handleToggleRenameChannelModal}
+                    handleOpenRenameChannelModal={() => openBaseModal(channel.id)}
                     handleToggleDeleteChannelModal={handleToggleDeleteChannelModal}
                   />
                 )
@@ -68,13 +62,6 @@ const Channels = () => {
         show={isDeleteModalOpen}
         hide={() => handleToggleDeleteChannelModal()}
         channelId={channelId}
-      />
-      <RenameChannelModal
-        show={isRenameModalOpen}
-        hide={() => handleToggleRenameChannelModal()}
-        channelId={channelId}
-        channelName={channelName}
-        channels={channels}
       />
     </>
   );

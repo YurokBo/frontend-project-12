@@ -13,7 +13,6 @@ import { actions } from '../../store';
 import {
   useGetChannelsQuery,
 } from '../../store/services/channelsApi';
-// import AddChannelModal from '../../components/modals/AddChannelModal';
 import MessageForm from '../../components/message/MessageForm';
 import Messages from '../../components/message/Messages';
 import Channels from '../../components/channels/Channels';
@@ -25,7 +24,6 @@ const Chat = () => {
   const {
     channels, activeChannelId, /* channelsNames, */
   } = useSelector((state) => state.channels);
-  // const [isModalOpen, setModalOpen] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -38,10 +36,6 @@ const Chat = () => {
       dispatch(actions.setActiveChannelId(activeChannel.id));
     }
   }, [data, channels, dispatch]);
-
-  // const handleToggleAddChannelModal = () => {
-  //   setModalOpen(!isModalOpen);
-  // };
 
   const openBaseModal = () => {
     dispatch(actions.openModal({ componentName: 'add', modalTitle: 'modals.addChannel' }));
@@ -67,7 +61,6 @@ const Chat = () => {
                       aria-label={t('modals.addChannel')}
                       className="p-1 text-primary btn btn-group-vertical"
                       onClick={openBaseModal}
-                      // onClick={handleToggleAddChannelModal}
                     >
                       <PlusLg />
                       <span className="visually-hidden">+</span>
@@ -82,11 +75,6 @@ const Chat = () => {
               </Row>
             </Tab.Container>
             )}
-            {/* <AddChannelModal */}
-            {/*  show={isModalOpen} */}
-            {/*  hide={() => handleToggleAddChannelModal()} */}
-            {/*  channelsNames={channelsNames} */}
-            {/* /> */}
             <BaseModal />
           </Container>
         )}
