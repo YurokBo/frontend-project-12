@@ -32,6 +32,7 @@ const en = {
       tooShortPassword: 'At least 6 characters',
       fetchError: 'Network error',
       userExists: 'This user already exists',
+      requiredField: 'Required field',
     },
     chat: {
       channels: 'Channels',
