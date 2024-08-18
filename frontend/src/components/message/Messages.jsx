@@ -2,14 +2,15 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useGetMessagesQuery } from '../../store/services/messagesApi';
 
-const Messages = () => {
+const Messages = ({ channels }) => {
   const { t } = useTranslation();
   const { data } = useGetMessagesQuery();
-  const { activeChannelId, activeChannel } = useSelector((state) => state.channels);
+  const { activeChannelId } = useSelector((state) => state.channels);
   const filteredMessagesByChannelId = data?.filter(
     (message) => message.channelId === activeChannelId,
   ) || [];
   const messagesCount = filteredMessagesByChannelId.length ?? '0';
+  const activeChannelName = channels.find(({ id }) => id === activeChannelId)?.name;
 
   return (
     <>
@@ -18,7 +19,7 @@ const Messages = () => {
           <b>
             #
             {' '}
-            { activeChannel.name }
+            { activeChannelName }
           </b>
         </p>
         <span className="text-muted">

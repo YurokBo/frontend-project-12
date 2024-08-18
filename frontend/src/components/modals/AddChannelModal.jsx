@@ -2,21 +2,20 @@ import { Button, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useAddChannelMutation } from '../../store/services/channelsApi';
 import { channelNameSchema } from '../../utils/validation';
 import showToastMessage from '../../utils/toast';
 import { actions } from '../../store';
 
-const AddChannelModal = ({ handleCloseModal }) => {
+const AddChannelModal = ({ channels, handleCloseModal }) => {
   const { t } = useTranslation();
   const [addChannel, {
     isLoading,
   }] = useAddChannelMutation();
   const dispatch = useDispatch();
 
-  const { channels } = useSelector((state) => state.channels);
   const channelsNames = channels.map(({ name }) => name);
 
   const [isSendDisabled, setSendDisabled] = useState(false);
@@ -51,7 +50,6 @@ const AddChannelModal = ({ handleCloseModal }) => {
           formik.values.name = '';
 
           dispatch(actions.setActiveChannelId(data.id));
-          dispatch(actions.setActiveChannel(data));
         })
         .catch((error) => {
           showToastMessage(error.messages, 'error');

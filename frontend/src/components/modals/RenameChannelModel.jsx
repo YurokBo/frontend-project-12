@@ -7,13 +7,12 @@ import { useUpdateChannelMutation } from '../../store/services/channelsApi';
 import { channelNameSchema } from '../../utils/validation';
 import showToastMessage from '../../utils/toast';
 
-const RenameChannelModal = ({ handleCloseModal }) => {
+const RenameChannelModal = ({ channels, handleCloseModal }) => {
   const { t } = useTranslation();
   const [updateChannel, {
     isLoading,
   }] = useUpdateChannelMutation();
 
-  const { channels } = useSelector((state) => state.channels);
   const channelsNames = channels.map(({ name }) => name);
 
   const { channelId } = useSelector((state) => state.modal);

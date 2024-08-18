@@ -3,16 +3,12 @@ import { actions } from '../../store';
 import DefaultChannelButton from './DefaultChannelButton';
 import RemovableChannelButton from './RemovableChannelButton';
 
-const Channels = () => {
+const Channels = ({ channels }) => {
   const dispatch = useDispatch();
-
-  const { channels, activeChannelId } = useSelector((state) => state.channels);
+  const { activeChannelId } = useSelector((state) => state.channels);
 
   const handleActiveChannelId = (id) => {
-    const activeChannel = channels.find((channel) => id === channel.id);
-
     dispatch(actions.setActiveChannelId(id));
-    dispatch(actions.setActiveChannel(activeChannel));
   };
 
   const handleOpenBaseModal = (action, channelId) => {
