@@ -37,7 +37,7 @@ const Chat = () => {
     }
   }, [data, channels, dispatch]);
 
-  const openBaseModal = () => {
+  const handleOpenBaseModal = () => {
     dispatch(actions.openModal({ componentName: 'add', modalTitle: 'modals.addChannel' }));
   };
 
@@ -60,7 +60,7 @@ const Chat = () => {
                       variant="outline-primary"
                       aria-label={t('modals.addChannel')}
                       className="p-1 text-primary btn btn-group-vertical"
-                      onClick={openBaseModal}
+                      onClick={handleOpenBaseModal}
                     >
                       <PlusLg />
                       <span className="visually-hidden">+</span>

@@ -8,8 +8,7 @@ const RemovableChannelButton = (props) => {
     activeChannelId,
     handleActiveChannelId,
     name,
-    handleOpenRenameChannelModal,
-    handleToggleDeleteChannelModal,
+    handleOpenBaseModal,
   } = props;
 
   const variant = id === activeChannelId ? 'secondary' : null;
@@ -36,17 +35,14 @@ const RemovableChannelButton = (props) => {
         <Dropdown.Item
           as="button"
           onClick={
-            () => handleOpenRenameChannelModal({
-              id,
-              name,
-            })
+            () => handleOpenBaseModal('rename')
           }
         >
           {t('buttons.rename')}
         </Dropdown.Item>
         <Dropdown.Item
           as="button"
-          onClick={() => handleToggleDeleteChannelModal(id)}
+          onClick={() => handleOpenBaseModal('delete')}
         >
           {t('buttons.delete')}
         </Dropdown.Item>
