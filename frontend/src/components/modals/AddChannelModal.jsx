@@ -47,6 +47,7 @@ const AddChannelModal = ({ handleCloseModal }) => {
 
           showToastMessage(t('toastContent.channelCreated'));
           handleCloseModal();
+          formik.handleReset({ ...initialValues });
           formik.values.name = '';
 
           dispatch(actions.setActiveChannelId(data.id));
@@ -58,6 +59,11 @@ const AddChannelModal = ({ handleCloseModal }) => {
         });
     },
   });
+
+  const handleHideModal = () => {
+    handleCloseModal();
+    formik.handleReset({ ...initialValues });
+  };
 
   useEffect(() => {
     setSendDisabled(isLoading
@@ -88,7 +94,7 @@ const AddChannelModal = ({ handleCloseModal }) => {
               )}
       </Form.Group>
       <div className="d-flex justify-content-end gap-2">
-        <Button variant="secondary" disabled={isLoading} onClick={handleCloseModal}>
+        <Button variant="secondary" disabled={isLoading} onClick={handleHideModal}>
           {t('buttons.cancel')}
         </Button>
         <Button disabled={isSendDisabled} type="submit">

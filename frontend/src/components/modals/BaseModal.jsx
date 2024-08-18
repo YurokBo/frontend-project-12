@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { actions } from '../../store';
 import AddChannelModal from './AddChannelModal';
+import RenameChannelModal from './RenameChannelModel';
 
 const modalComponents = {
   add: AddChannelModal,
+  rename: RenameChannelModal,
 };
 
 const BaseModal = () => {

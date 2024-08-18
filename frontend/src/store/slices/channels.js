@@ -31,9 +31,6 @@ export const slice = createSlice({
         activeChannelId: payload,
       };
     },
-    addChannel(state, { payload }) {
-      state.channels.push(payload);
-    },
   },
 });
 
