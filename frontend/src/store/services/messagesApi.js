@@ -23,20 +23,20 @@ export const messagesApi = createApi({
     addMessage: builder.mutation({
       query: (newMessage) => ({
         url: '',
-        method: apiMethods.post,
+        method: apiMethods.post(),
         body: newMessage,
       }),
     }),
     removeMessage: builder.mutation({
       query: (id) => ({
         url: `${id}`,
-        method: apiMethods.delete,
+        method: apiMethods.delete(),
       }),
     }),
     editMessage: builder.mutation({
       query: ({ id, editedMessage }) => ({
         url: `${id}`,
-        method: apiMethods.patch,
+        method: apiMethods.patch(),
         body: editedMessage,
       }),
     }),
