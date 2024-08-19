@@ -22,20 +22,20 @@ export const channelsApi = createApi({
     addChannel: builder.mutation({
       query: (newChannel) => ({
         url: '',
-        method: apiMethods.post,
+        method: apiMethods.post(),
         body: newChannel,
       }),
     }),
     removeChannel: builder.mutation({
       query: (id) => ({
         url: `${id}`,
-        method: apiMethods.delete,
+        method: apiMethods.delete(),
       }),
     }),
     updateChannel: builder.mutation({
       query: ({ id, name }) => ({
         url: `${id}`,
-        method: apiMethods.patch,
+        method: apiMethods.patch(),
         body: { name },
       }),
     }),

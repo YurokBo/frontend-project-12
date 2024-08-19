@@ -15,8 +15,8 @@ export const apiPaths = {
 };
 
 export const apiMethods = {
-  get: 'GET',
-  post: 'POST',
-  delete: 'DELETE',
-  patch: 'PATCH',
+  get: () => 'GET',
+  post: () => 'POST',
+  delete: () => 'DELETE',
+  patch: () => 'PATCH',
 };

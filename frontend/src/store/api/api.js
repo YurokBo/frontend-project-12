@@ -4,7 +4,7 @@ import { apiMethods, apiPaths } from '../../helpers/routes';
 export const login = ({ username, password }) => {
   try {
     return axios.request({
-      method: apiMethods.post,
+      method: apiMethods.post(),
       url: apiPaths.loginPath(),
       data: {
         username,
@@ -19,7 +19,7 @@ export const login = ({ username, password }) => {
 export const signup = ({ username, password }) => {
   try {
     return axios.request({
-      method: apiMethods.post,
+      method: apiMethods.post(),
       url: apiPaths.signupPath(),
       data: {
         username,
