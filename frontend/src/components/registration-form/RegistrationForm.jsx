@@ -19,6 +19,7 @@ import { actions } from '../../store/slices/auth';
 import LoginImage from '../../assets/images/registration-image.jpg';
 import { signUpSchema } from '../../utils/validation';
 import showToastMessage from '../../utils/toast';
+import { routes } from '../../helpers/routes';
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const RegistrationForm = () => {
         .then((response) => {
           dispatch(actions.setUser(response.data));
           setValidation(true);
-          navigate('/');
+          navigate(routes.rootPage());
         })
         .catch((error) => {
           if (error?.code === 'ERR_NETWORK') {

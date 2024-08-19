@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_PATH } from '../api/api';
+import { apiMethods, apiPaths } from '../../helpers/routes';
 
 export const messagesApi = createApi({
   reducerPath: 'messagesApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${API_PATH}/messages`,
+    baseUrl: apiPaths.messagesPath(),
     prepareHeaders: (headers, { getState }) => {
       const { auth: { token } } = getState();
 
@@ -23,20 +23,20 @@ export const messagesApi = createApi({
     addMessage: builder.mutation({
       query: (newMessage) => ({
         url: '',
-        method: 'POST',
+        method: apiMethods.post,
         body: newMessage,
       }),
     }),
     removeMessage: builder.mutation({
       query: (id) => ({
         url: `${id}`,
-        method: 'DELETE',
+        method: apiMethods.delete,
       }),
     }),
     editMessage: builder.mutation({
       query: ({ id, editedMessage }) => ({
         url: `${id}`,
-        method: 'PATCH',
+        method: apiMethods.patch,
         body: editedMessage,
       }),
     }),
