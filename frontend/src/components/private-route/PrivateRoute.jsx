@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { routes } from '../../helpers/routes';
 
-const PrivateRoute = ({ redirectPath = '/login', isAllowed }) => {
+const PrivateRoute = ({ redirectPath = routes.loginPage(), isAllowed }) => {
   if (!isAllowed) {
     return <Navigate to={redirectPath} replace />;
   }

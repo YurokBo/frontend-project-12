@@ -11,6 +11,7 @@ import LoginImage from '../../assets/images/login-image.jpeg';
 import { login } from '../../store/api/api';
 import { actions } from '../../store/slices/auth';
 import showToastMessage from '../../utils/toast';
+import { routes } from '../../helpers/routes';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -27,12 +28,14 @@ const LoginForm = () => {
     },
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: (values) => {
-      login(values)
+    onSubmit: async (values) => {
+      console.log('values', values);
+      await login(values)
         .then((response) => {
+          console.log('response', response);
           dispatch(actions.setUser(response.data));
           setValidation(true);
-          navigate('/');
+          navigate(routes.rootPage());
         })
         .catch((error) => {
           rollbar.error('LoginForm', error);
@@ -113,7 +116,7 @@ const LoginForm = () => {
             <span>
               {t('auth.text')}
             </span>
-            <Link to="/signup">{t('auth.link')}</Link>
+            <Link to={routes.signupPage()}>{t('auth.link')}</Link>
           </div>
         </Card.Footer>
       </Card>
