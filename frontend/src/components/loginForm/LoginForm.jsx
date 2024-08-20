@@ -32,7 +32,6 @@ const LoginForm = () => {
       console.log('values', values);
       await login(values)
         .then((response) => {
-          console.log('response', response);
           dispatch(actions.setUser(response.data));
           setValidation(true);
           navigate(routes.rootPage());
