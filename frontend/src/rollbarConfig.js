@@ -6,4 +6,6 @@ const rollbarConfig = {
   captureUnhandledRejections: true,
 };
 
+console.log('process.env', process.env);
+
 export default rollbarConfig;
