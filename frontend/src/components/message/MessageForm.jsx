@@ -21,7 +21,7 @@ const MessageForm = () => {
     },
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: (values) => {
+    onSubmit: (values, { setSubmitting }) => {
       const newMessage = {
         body: leoProfanity.clean(values.message),
         channelId: activeChannelId,
@@ -35,8 +35,9 @@ const MessageForm = () => {
             return;
           }
 
-          if (!isError) {
-            formik.values.message = '';
+          if (!isError && !isLoading) {
+            formik.resetForm();
+            setSubmitting(false);
           }
         });
     },
@@ -63,6 +64,7 @@ const MessageForm = () => {
             inputMode="text"
             autoComplete="off"
             aria-label={t('chat.messages.newMessage')}
+            autoFocus
           />
           <Button
             className="ms-1"
