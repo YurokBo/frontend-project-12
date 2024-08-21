@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useRef } from 'react';
 import { useGetMessagesQuery } from '../../store/services/messagesApi';
 
 const Messages = ({ channels }) => {
@@ -11,6 +12,17 @@ const Messages = ({ channels }) => {
   ) || [];
   const messagesCount = filteredMessagesByChannelId.length ?? '0';
   const activeChannelName = channels.find(({ id }) => id === activeChannelId)?.name;
+
+  const messagesRef = useRef(null);
+  const scrollToBottom = () => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight);
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [data]);
 
   return (
     <>
@@ -28,7 +40,7 @@ const Messages = ({ channels }) => {
           { t('chat.messages.messagesCount', { count: messagesCount }) }
         </span>
       </div>
-      <div id="messages-box" className="px-5 chat-messages overflow-auto">
+      <div ref={messagesRef} id="messages-box" className="px-5 chat-messages overflow-auto">
         { filteredMessagesByChannelId.map((message) => (
           <div className="text-break mb-2" key={message.id}>
             <b>
