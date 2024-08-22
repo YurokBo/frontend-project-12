@@ -7,5 +7,6 @@ const rollbarConfig = {
 };
 
 console.log('process.env', process.env.REACT_APP_POST_CLIENT_ITEM_ACCESS_TOKEN);
+console.log('process.env', process.env);
 
 export default rollbarConfig;
