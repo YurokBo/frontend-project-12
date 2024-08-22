@@ -29,7 +29,6 @@ const LoginForm = () => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: async (values) => {
-      console.log('values', values);
       await login(values)
         .then((response) => {
           dispatch(actions.setUser(response.data));
