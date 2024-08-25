@@ -6,8 +6,7 @@ const rollbarConfig = {
   captureUnhandledRejections: true,
 };
 
-console.log('process.env', process.env.REACT_APP_POST_CLIENT_ITEM_ACCESS_TOKEN);
+console.log('REACT_APP_POST_CLIENT_ITEM_ACCESS_TOKEN', process.env.REACT_APP_POST_CLIENT_ITEM_ACCESS_TOKEN);
 console.log('rollbarConfig', rollbarConfig);
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 
 export default rollbarConfig;
