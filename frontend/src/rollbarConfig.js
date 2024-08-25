@@ -1,6 +1,6 @@
 const rollbarConfig = {
   // accessToken: process.env.REACT_APP_NOT_SECRET_CODE /* '23bd92fae990454b8789ad3be0601895' */,
-  accessToken: process.env.REACT_APP_NOT_SECRET_CODE,
+  accessToken: process.env.REACT_APP_POST_CLIENT_ITEM_ACCESS_TOKEN,
   environment: 'production',
   captureUncaught: true,
   captureUnhandledRejections: true,
