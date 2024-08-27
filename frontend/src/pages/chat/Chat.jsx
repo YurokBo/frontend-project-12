@@ -26,7 +26,7 @@ const Chat = () => {
   const { t } = useTranslation();
 
   const handleOpenBaseModal = () => {
-    dispatch(actions.openModal({ componentName: 'add', modalTitle: 'modals.addChannel' }));
+    dispatch(actions.openModal({ type: 'add', modalTitle: 'modals.addChannel' }));
   };
 
   return (
