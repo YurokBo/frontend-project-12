@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const defaultStateData = {
   isModalOpened: false,
   modalTitle: null,
-  componentName: null,
+  type: null,
   channelId: null,
 };
 
@@ -15,14 +15,14 @@ export const slice = createSlice({
   reducers: {
     openModal: (state, {
       payload: {
-        componentName,
+        type,
         channelId,
         modalTitle,
       },
     }) => ({
       ...state,
       isModalOpened: true,
-      componentName,
+      type,
       channelId,
       modalTitle,
     }),

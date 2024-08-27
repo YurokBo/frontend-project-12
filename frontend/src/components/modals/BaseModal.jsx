@@ -13,10 +13,10 @@ const modalComponents = {
 };
 
 const BaseModal = ({ channels }) => {
-  const { isModalOpened, componentName, modalTitle } = useSelector((state) => state.modal);
+  const { isModalOpened, type, modalTitle } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const ModalComponent = modalComponents[componentName];
+  const ModalComponent = modalComponents[type];
 
   const handleCloseModal = () => {
     dispatch(actions.closeModal());

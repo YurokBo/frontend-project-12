@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const defaultUserData = { username: null, token: null };
+
 const slice = createSlice({
   name: 'auth',
-  initialState: JSON.parse(localStorage.getItem('user')) || { username: null, token: null },
+  initialState: JSON.parse(localStorage.getItem('user')) || { ...defaultUserData },
   reducers: {
     setUser(state, { payload }) {
       const { username, token } = payload;
@@ -14,13 +16,12 @@ const slice = createSlice({
         token,
       };
     },
-    removeUser(state) {
+    setDefaultUserData(state) {
       localStorage.removeItem('user');
 
       return {
         ...state,
-        username: null,
-        token: null,
+        ...defaultUserData,
       };
     },
   },

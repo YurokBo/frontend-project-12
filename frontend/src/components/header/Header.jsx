@@ -11,7 +11,7 @@ const Header = () => {
   const auth = useSelector((state) => state.auth);
   const href = auth.token ? routes.rootPage() : routes.loginPage();
 
-  const logout = () => dispatch(actions.removeUser());
+  const logout = () => dispatch(actions.setDefaultUserData());
 
   return (
     <Navbar className="bg-body-tertiary shadow-sm navbar navbar-expand-lg navbar-light bg-white fixed-top">

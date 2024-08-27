@@ -12,7 +12,7 @@ const Channels = ({ channels }) => {
   };
 
   const handleOpenBaseModal = (action, channelId) => {
-    dispatch(actions.openModal({ componentName: action, modalTitle: 'modals.renameChannel', channelId }));
+    dispatch(actions.openModal({ type: action, modalTitle: 'modals.renameChannel', channelId }));
   };
 
   return (
